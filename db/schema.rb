@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170325002233) do
+ActiveRecord::Schema.define(version: 20170325133428) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,16 +22,16 @@ ActiveRecord::Schema.define(version: 20170325002233) do
     t.string   "gender"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer  "towns_id"
-    t.index ["towns_id"], name: "index_births_on_towns_id", using: :btree
+    t.integer  "town_id"
+    t.index ["town_id"], name: "index_births_on_town_id", using: :btree
   end
 
   create_table "cantons", force: :cascade do |t|
     t.string   "name"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-    t.integer  "counties_id"
-    t.index ["counties_id"], name: "index_cantons_on_counties_id", using: :btree
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer  "county_id"
+    t.index ["county_id"], name: "index_cantons_on_county_id", using: :btree
   end
 
   create_table "counties", force: :cascade do |t|
@@ -47,8 +47,8 @@ ActiveRecord::Schema.define(version: 20170325002233) do
     t.string   "gender"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer  "towns_id"
-    t.index ["towns_id"], name: "index_deaths_on_towns_id", using: :btree
+    t.integer  "town_id"
+    t.index ["town_id"], name: "index_deaths_on_town_id", using: :btree
   end
 
   create_table "divorces", force: :cascade do |t|
@@ -61,8 +61,8 @@ ActiveRecord::Schema.define(version: 20170325002233) do
     t.text     "verdict"
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
-    t.integer  "towns_id"
-    t.index ["towns_id"], name: "index_divorces_on_towns_id", using: :btree
+    t.integer  "town_id"
+    t.index ["town_id"], name: "index_divorces_on_town_id", using: :btree
   end
 
   create_table "mariages", force: :cascade do |t|
@@ -73,8 +73,8 @@ ActiveRecord::Schema.define(version: 20170325002233) do
     t.text     "mariage_count"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
-    t.integer  "towns_id"
-    t.index ["towns_id"], name: "index_mariages_on_towns_id", using: :btree
+    t.integer  "town_id"
+    t.index ["town_id"], name: "index_mariages_on_town_id", using: :btree
   end
 
   create_table "migrations", force: :cascade do |t|
@@ -86,22 +86,24 @@ ActiveRecord::Schema.define(version: 20170325002233) do
     t.string   "gender"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer  "towns_id"
-    t.index ["towns_id"], name: "index_migrations_on_towns_id", using: :btree
+    t.integer  "town_id"
+    t.index ["town_id"], name: "index_migrations_on_town_id", using: :btree
   end
 
   create_table "towns", force: :cascade do |t|
-    t.string  "name"
-    t.integer "citizens"
-    t.integer "cantons_id"
-    t.index ["cantons_id"], name: "index_towns_on_cantons_id", using: :btree
+    t.string   "name"
+    t.integer  "citizens"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "canton_id"
+    t.index ["canton_id"], name: "index_towns_on_canton_id", using: :btree
   end
 
-  add_foreign_key "births", "towns", column: "towns_id"
-  add_foreign_key "cantons", "counties", column: "counties_id", name: "cantons_counties_id_fk"
-  add_foreign_key "deaths", "towns", column: "towns_id"
-  add_foreign_key "divorces", "towns", column: "towns_id"
-  add_foreign_key "mariages", "towns", column: "towns_id"
-  add_foreign_key "migrations", "towns", column: "towns_id"
-  add_foreign_key "towns", "cantons", column: "cantons_id", name: "towns_cantons_id_fk"
+  add_foreign_key "births", "towns"
+  add_foreign_key "cantons", "counties"
+  add_foreign_key "deaths", "towns"
+  add_foreign_key "divorces", "towns"
+  add_foreign_key "mariages", "towns"
+  add_foreign_key "migrations", "towns"
+  add_foreign_key "towns", "cantons"
 end
