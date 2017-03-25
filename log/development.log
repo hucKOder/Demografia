@@ -5089,3 +5089,45 @@ Migrating to DeleteWrongColumns (20170325000023)
           ORDER BY c.conname
         [0m
   [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations"[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations"[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_try_advisory_lock(6503465804737479060);[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1m[34mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Migrating to AddTownAsForeignKey (20170325002233)
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.3ms)[0m  [1m[35mALTER TABLE "migrations" ADD "towns_id" integer[0m
+  [1m[35m (37.6ms)[0m  [1m[35mCREATE  INDEX  "index_migrations_on_towns_id" ON "migrations"  ("towns_id")[0m
+  [1m[35m (1.1ms)[0m  [1m[35mALTER TABLE "migrations" ADD CONSTRAINT "fk_rails_5253def77e"
+FOREIGN KEY ("towns_id")
+  REFERENCES "towns" ("id")
+[0m
+  [1m[35m (0.2ms)[0m  [1m[35mALTER TABLE "births" ADD "towns_id" integer[0m
+  [1m[35m (19.5ms)[0m  [1m[35mCREATE  INDEX  "index_births_on_towns_id" ON "births"  ("towns_id")[0m
+  [1m[35m (1.0ms)[0m  [1m[35mALTER TABLE "births" ADD CONSTRAINT "fk_rails_e9936bdc51"
+FOREIGN KEY ("towns_id")
+  REFERENCES "towns" ("id")
+[0m
+  [1m[35m (0.3ms)[0m  [1m[35mALTER TABLE "deaths" ADD "towns_id" integer[0m
+  [1m[35m (17.9ms)[0m  [1m[35mCREATE  INDEX  "index_deaths_on_towns_id" ON "deaths"  ("towns_id")[0m
+  [1m[35m (1.0ms)[0m  [1m[35mALTER TABLE "deaths" ADD CONSTRAINT "fk_rails_8d2cce2583"
+FOREIGN KEY ("towns_id")
+  REFERENCES "towns" ("id")
+[0m
+  [1m[35m (0.2ms)[0m  [1m[35mALTER TABLE "mariages" ADD "towns_id" integer[0m
+  [1m[35m (19.1ms)[0m  [1m[35mCREATE  INDEX  "index_mariages_on_towns_id" ON "mariages"  ("towns_id")[0m
+  [1m[35m (1.0ms)[0m  [1m[35mALTER TABLE "mariages" ADD CONSTRAINT "fk_rails_69eeba751d"
+FOREIGN KEY ("towns_id")
+  REFERENCES "towns" ("id")
+[0m
+  [1m[35m (0.3ms)[0m  [1m[35mALTER TABLE "divorces" ADD "towns_id" integer[0m
+  [1m[35m (30.0ms)[0m  [1m[35mCREATE  INDEX  "index_divorces_on_towns_id" ON "divorces"  ("towns_id")[0m
+  [1m[35m (1.3ms)[0m  [1m[35mALTER TABLE "divorces" ADD CONSTRAINT "fk_rails_68741a3a4d"
+FOREIGN KEY ("towns_id")
+  REFERENCES "towns" ("id")
+[0m
+  [1m[35mSQL (0.8ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20170325002233"]]
+  [1m[35m (14.7ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.3ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", :environment], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_advisory_unlock(6503465804737479060)[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1m[34mSELECT "schema_migrations".* FROM "schema_migrations"[0m
