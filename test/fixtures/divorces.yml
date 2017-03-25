@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  year: 1
+  women_age: 1
+  man_age: 1
+  count: 1
+  duration: 1
+  gender_file_a_petition: MyString
+  verdict: MyText
+
+two:
+  year: 1
+  women_age: 1
+  man_age: 1
+  count: 1
+  duration: 1
+  gender_file_a_petition: MyString
+  verdict: MyText

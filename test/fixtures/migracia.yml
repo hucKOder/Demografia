@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  year: 1
+  age: 1
+  emigrants: 1
+  imigrants: 1
+  reason: MyText
+  gender: MyString
+
+two:
+  year: 1
+  age: 1
+  emigrants: 1
+  imigrants: 1
+  reason: MyText
+  gender: MyString

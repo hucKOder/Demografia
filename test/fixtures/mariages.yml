@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  year: 1
+  bride_age: 1
+  fiance_age: 1
+  count: 1
+  mariage_count: MyText
+
+two:
+  year: 1
+  bride_age: 1
+  fiance_age: 1
+  count: 1
+  mariage_count: MyText
