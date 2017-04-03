@@ -16,13 +16,28 @@
 
 @import "bootstrap-sprockets"
 @import "bootstrap"
+@import url(https://fonts.google.com/specimen/Work+Sans?selection.family=Work+Sans)
+
+$work-sans: 'Work Sans', sans-serif
 
 body
-	font: 100% Helvetica, sans-serif
-
+	font-family: $work-sans
+h1
+	.main
+		font-family: $work-sans
 .footer
 	position: absolute
 	bottom: 0
 	width: 100%
 	height: 60px
-	background-color: #e3f2fd
+	background-color: #ADD8E6
+
+.navbar-brand
+	position: absolute
+	width: 100%
+	left: 0
+	text-align: center
+	margin: 0 auto
+
+.navbar-toggle 
+	z-index: 3
