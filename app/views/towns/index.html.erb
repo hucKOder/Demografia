@@ -1,0 +1,19 @@
+<div class="jumbotron">
+	<h1>Zadaj okres, ktorý hľadáš!</h1>
+	<p>Vedeli ste, že: </p>
+</div>
+
+<div id='cantons'>
+	<div>
+		<h3>V okrese sa nachádza <% @towns.count %> miest.</h3>
+	</div>
+	<% @towns.each do |town| %>
+	<div class="col-xs-9">
+		<div id='user'>
+			<h6><%= town.name %>
+			</h6>
+		</div>
+		<div id='popup'>Extended info about a town</div>
+	</div>
+	<% end %>
+</div> 
