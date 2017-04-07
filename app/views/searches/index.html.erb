@@ -1,20 +1,14 @@
-<div class="jumbotron">
-  <h1>Ahoj hľadač informácií!</h1>
-  <p>Vedeli ste, že: </p>
-</div>
 <div>
 	<h3>Vyber si, z krajov:</h3>
 </div>
-<div id='counties'>
+<div id='container'>
 	<% @counties.each_slice(5) do |counties| %>
   <div class="row">
     <% counties.each do |county|%>
     <div class='col-md-2'>
       <h6><%= link_to county.name, cantons_path(:county_id => county.id) %></h6>
-      <%= county.id %>
     </div>
     <% end %>
   </div>
+  <% end %>
 </div>
-<% end %>
-</div> 

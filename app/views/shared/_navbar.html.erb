@@ -1,18 +1,9 @@
-<nav class="navbar-fixed-top navbar-light" style="background-color: #ADD8E6;">
-    <div class="navbar-header">
-    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-      <span class="icon-bar"></span>
-      <span class="icon-bar"></span>
-      <span class="icon-bar"></span>
-    </button>    
-  </div>
-  <a class="navbar-brand" href="#">Logo</a>
-  <div class="navbar-collapse collapse">
-    <ul class="nav navbar-nav">
-        <li><%= link_to 'Domov', root_path %></li>
-    </ul>
-    <ul class="nav navbar-nav">
-      <li><%= link_to 'Hľadaj', searches_path %></li>
-    </ul>
-  </div>
-</nav>
+<header class='navbar navbar-light'>
+  <nav class='container'>
+    <div class='row'>
+      <div class="col-6 col-md-4"><p class="text-center"><%= link_to 'Domov', root_path%></p></div>
+      <div class="col-6 col-md-4"><p class='text-center'>DemografSK</p></div>
+      <div class="col-6 col-md-4"><p class="text-center"><%= link_to 'Hľadaj', searches_path%></p></div>
+    </div>
+  </nav> 
+</header>

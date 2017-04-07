@@ -1,22 +1,15 @@
-<div class="jumbotron">
-  <h1>Zadaj okres, ktorý hľadáš!</h1>
-  <p>Vedeli ste, že: </p>
+<div>
+ <h3>Kraj sa skladá z <%= @cantons.count %> okresov</h3>
 </div>
 
-<div id='cantons'>
-  <div>
-	 <h3>Kraj sa skladá z <%= @cantons.count %> okresov</h3>
-  </div>
-	<% @cantons.each do |canton| %>
-        <div class="col-xs-9">
-        	<div id='user'>
-
-        		<h6><%= link_to canton.name, towns_path(:canton_id => canton.id) %>
-        		</h6>
-            <%= canton.id %>
-        	</div>
-          
-			   <div id='popup'>Extended info about a county </div>
-        </div>
+<div id='container'>
+  <% @cantons.each_slice(3) do |cantons| %>
+  <div class="row">
+  <% cantons.each do |canton|%>
+    <div class='col-md-4'>
+      <h6><%= link_to canton.name, towns_path(:canton_id => canton.id) %></h6>
+    </div>
     <% end %>
-</div> 
+  </div>
+  <% end %>
+</div>
