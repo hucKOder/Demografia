@@ -1,0 +1,161 @@
+<% if @type == "migrations" then %>
+<div class="container">
+	<h1 align="center">Štatistiky Migrácie</h1>
+</div>
+<div class="container">
+	<table class="table">
+		<thead>
+			<tr>
+				<th>Rok</th>
+				<th>Vek</th>
+				<th>Vysťahovalci</th>
+				<th>Prisťahovali</th>
+				<th>Dôvod</th>
+				<th>Pohlavie</th>
+			</tr>
+		</thead>
+		<tbody>
+			<% @migrations.each do |migration| %>
+			<tr>
+				<td><%= migration.year %></td>
+				<td><%= migration.age %></td>
+				<td><%= migration.emigrants %></td>
+				<td><%= migration.imigrants %></td>
+				<td><%= migration.reason %></td>
+				<td><%= migration.gender %></td>
+			</tr>
+			<% end %>
+		</tbody>
+	</table>
+</div>
+<%end%>
+
+
+
+<% if @type == "deaths" then %>
+<div class="container">
+	<h1 align="center">Štatistiky Úmrtí</h1>
+</div>
+<div class="container">
+	<table class="table">
+		<thead>
+			<tr>
+				<th>Rok</th>
+				<th>Vek</th>
+				<th>Počet</th>
+				<th>Pohlavie</th>
+			</tr>
+		</thead>
+		<tbody>
+			<% @migrations.each do |migration| %>
+			<tr>
+				<td><%= migration.year %></td>
+				<td><%= migration.age %></td>
+				<td><%= migration.count %></td>
+				<td><%= migration.gender %></td>
+			</tr>
+			<% end %>
+		</tbody>
+	</table>
+</div>
+<%end%>
+
+
+
+
+<% if @type == "births" then %>
+<div class="container">
+	<h1 align="center">Štatistiky Narodení</h1>
+</div>
+<div class="container">
+	<table class="table">
+		<thead>
+			<tr>
+				<th>Rok</th>
+				<th>Vek matky</th>
+				<th>Počet</th>
+				<th>Pohlavie</th>
+			</tr>
+		</thead>
+		<tbody>
+			<% @migrations.each do |migration| %>
+			<tr>
+				<td><%= migration.year %></td>
+				<td><%= migration.mother_age %></td>
+				<td><%= migration.count %></td>
+				<td><%= migration.gender %></td>
+			</tr>
+			<% end %>
+		</tbody>
+	</table>
+</div>
+<%end%>
+
+
+
+
+<% if @type == "divorces" then %>
+<div class="container">
+	<h1 align="center">Štatistiky Rozvodovosti</h1>
+</div>
+<div class="container">
+	<table class="table">
+		<thead>
+			<tr>
+				<th>Rok</th>
+				<th>Vek ženy</th>
+				<th>Vek muža</th>
+				<th>Počet</th>
+				<th>Trvanie manželstva</th>
+				<th>Pohlavie požiadalo o rozvod</th>
+				<th>Verdikt</th>
+			</tr>
+		</thead>
+		<tbody>
+			<% @migrations.each do |migration| %>
+			<tr>
+				<td><%= migration.year %></td>
+				<td><%= migration.women_age %></td>
+				<td><%= migration.man_age %></td>
+				<td><%= migration.count %></td>
+				<td><%= migration.duration %></td>
+				<td><%= migration.gender_file_a_petition %></td>
+				<td><%= migration.verdict %></td>
+			</tr>
+			<% end %>
+		</tbody>
+	</table>
+</div>
+<%end%>
+
+
+
+<% if @type == "mariages" then %>
+<div class="container">
+	<h1 align="center">Štatistiky Sobášov</h1>
+</div>
+<div class="container">
+	<table class="table">
+		<thead>
+			<tr>
+				<th>Rok</th>
+				<th>Vek nevesty</th>
+				<th>Vek ženícha</th>
+				<th>Počet</th>
+				<th>Manželstvo v poradí</th>
+			</tr>
+		</thead>
+		<tbody>
+			<% @migrations.each do |migration| %>
+			<tr>
+				<td><%= migration.year %></td>
+				<td><%= migration.bride_age %></td>
+				<td><%= migration.fiance_age %></td>
+				<td><%= migration.count %></td>
+				<td><%= migration.mariage_count %></td>
+			</tr>
+			<% end %>
+		</tbody>
+	</table>
+</div>
+<%end%>

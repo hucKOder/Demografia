@@ -1,13 +1,14 @@
-<div>
- <h3>Kraj sa skladá z <%= @cantons.count %> okresov</h3>
+<div class="container" align="center">
+ <h2>Kraj sa skladá z <%= @cantons.count %> okresov</h2>
+ <hr/>
 </div>
 
-<div id='container'>
+<div class='container' align="center">
   <% @cantons.each_slice(3) do |cantons| %>
   <div class="row">
   <% cantons.each do |canton|%>
     <div class='col-md-4'>
-      <h6><%= link_to canton.name, towns_path(:canton_id => canton.id) %></h6>
+      <h4><%= link_to canton.name, towns_path(:canton_id => canton.id) %></h4>
     </div>
     <% end %>
   </div>

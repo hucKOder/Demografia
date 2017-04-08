@@ -1,0 +1,14 @@
+<div class="container">
+	<h2 align="center">Kategórie mesta <%= @id.first.name %> s počtom obyvateľov: <%= @id.first.citizens %></h2>
+	<hr/>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-xs-2" id="p1" style="font-size: 150%"><%= link_to 'Úmrtnosť', migrations_path(:id => @id.first.id, :type => "deaths") %></div>
+        <div class="col-xs-2 col-half-offset"><%= link_to 'Pôrodnosť', migrations_path(:id => @id.first.id, :type => "births") %></div>
+        <div class="col-xs-2 col-half-offset"><%= link_to 'Sobášnosť', migrations_path(:id => @id.first.id, :type => "mariages") %></div>
+        <div class="col-xs-2 col-half-offset"><%= link_to 'Rozvodovosť', migrations_path(:id => @id.first.id, :type => "divorces") %></div>
+        <div class="col-xs-2 col-half-offset"><%= link_to 'Migrácia', migrations_path(:id => @id.first.id, :type => "migrations") %></div>
+    </div>
+</div>

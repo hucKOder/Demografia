@@ -1,12 +1,14 @@
-<div>
-	<h3>Vyber si, z krajov:</h3>
+
+<div class='container' align="center">
+	<h2>Vyber si, z krajov:</h2>
+  <hr/>
 </div>
-<div id='container'>
-	<% @counties.each_slice(5) do |counties| %>
+<div class='container'>
+	<% @counties.each_slice(6) do |counties| %>
   <div class="row">
     <% counties.each do |county|%>
-    <div class='col-md-2'>
-      <h6><%= link_to county.name, cantons_path(:county_id => county.id) %></h6>
+    <div class='col-xs-2' align="center">
+      <h4><%= link_to county.name, cantons_path(:county_id => county.id) %></h4>
     </div>
     <% end %>
   </div>

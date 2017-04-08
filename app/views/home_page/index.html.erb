@@ -1,0 +1,22 @@
+<div class='container'>
+  <div class='row'>
+    <div class='col-xs-6' align="center">
+      <h3>Vyber si obdobie, ktoré ťa zaujíma</h3>
+    </div>
+    <div class='col-xs-6' align="center">
+      <h3>Hľadaj konkrétne podľa krajov Slovenska</h3>  
+    </div> 
+  </div>
+  <div class='row'>
+    <div class='col-xs-6' align="center">
+      <%= form_tag(years_path, method: 'get') do %> 
+      <%= select_year(2016, start_year: 1996, end_year: 2016, name: 'year') %>
+      <%= submit_tag "Submit" %> 
+      <%end%>
+    </div>
+    <div class='col-xs-6' align="center">
+      <%= link_to 'Pokračuj tu', searches_path, class: "btn btn-primary"%>
+    </div>
+    <hr/>
+  </div>
+</div>

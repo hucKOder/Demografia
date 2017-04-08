@@ -1,10 +1,15 @@
-<div id='container'>
-	<% @towns.each_slice(5) do |towns| %>
+<div class="container" align="center" style="padding-bottom: 20px">
+  <h2>Mestá</h2>
+  <hr/>
+</div>
+
+<div class='container' align="center">
+	<% @towns.each_slice(6) do |towns| %>
   <div class="row">
     <% towns.each do |town|%>
     <div class='col-md-2'>
-      <h6><%= town.name %>
-			</h6>
+      <h4><%= link_to town.name, categories_path(:town_id => town.id) %>
+			</h4>
     </div>
     <% end %>
   </div>
