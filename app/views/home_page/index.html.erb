@@ -10,7 +10,6 @@
   <div class='row'>
     <div class='col-xs-6' align="center">
       <%= form_tag(years_path, method: 'get') do %> 
-      <%= select_year(2016, start_year: 1996, end_year: 2016, name: 'year') %>
       <%= submit_tag "Submit" %> 
       <%end%>
     </div>

@@ -1,1 +1,99 @@
-<p><%= @year %></p>
+<h2 align="center">Môžes filtrovať v kategóriách: Úmrtnosť - Pôrodnosť - Sobáše - Rozvody - Migrácia</h2>
+<div class="container" align="center">
+	<%= form_tag(years_path, method: 'get') do %>
+	<%= text_field_tag :year, 'Zadaj rok' %>
+	<%= text_field_tag :town,'Zadaj mesto' %>
+	<%= text_field_tag :gender, 'Zadaj pohlavie'%>
+	<%= text_field_tag :demograf, 'Zadaj kategóriu'%>
+	<%= submit_tag 'Filter' %>
+	<% end %>
+</div>
+
+<% table = { :death => ["Rok", "Vek", "Počet", "Pohlavie", "Mesto"],
+	:birth => ["Rok", "Vek matky", "Počet", "Pohlavie", "Mesto"],
+	:marriage => ["Rok", "Vek nevesty", "Vek ženícha", "Počet", "Manželstvo v poradí", "Mesto"],
+	:divorce => ["Rok", "Vek ženy", "Vek muža", "Počet", "Trvanie", "Pohlavie podalo návrh", "Verdikt", "Mesto"],
+	:migration => ["Rok", "Vek", "Vysťahovalci", "Prisťahovalci", "Dôvod", "Pohlavie", "Mesto"] }%>
+
+
+	<div class="container">
+		<h1 align="center">Štatistiky</h1>
+	</div>
+	<div class="span3">
+		<table class="table">
+			<thead>
+				<tr>
+					<% table[@type].each do |type|%>
+					<th class="text-center col-md-2"><%= type %></th>
+					<% end %>
+				</tr>
+			</thead>
+			<tbody>
+				<%if @type == :death then%>
+				<% @deaths.each do |death|%>
+				<tr>
+					<td class="text-center col-md-2"><%= death.y %></td>
+					<td class="text-center col-md-2"><%= death.age %></td>
+					<td class="text-center col-md-2"><%= death.x %></td>
+					<td class="text-center col-md-2"><%= death.gender %></td>
+					<td class="text-center col-md-2"><%= death.t%></td>
+
+				</tr>
+				<% end %>
+				<% end %>
+
+				<%if @type == :birth then%>
+				<% @deaths.each do |death|%>
+				<tr>
+					<td class="text-center col-md-2"><%= death.y %></td>
+					<td class="text-center col-md-2"><%= death.age %></td>
+					<td class="text-center col-md-2"><%= death.x %></td>
+					<td class="text-center col-md-2"><%= death.gender %></td>
+					<td class="text-center col-md-2"><%= death.t%></td>
+				</tr>
+				<% end %>
+				<% end %>
+				<%if @type == :marriage then%>
+				<% @deaths.each do |death|%>
+				<tr>
+					<td class="text-center col-md-2"><%= death.y %></td>
+					<td class="text-center col-md-2"><%= death.bride_age %></td>
+					<td class="text-center col-md-2"><%= death.fiance_age %></td>
+					<td class="text-center col-md-2"><%= death.x %></td>
+					<td class="text-center col-md-2"><%= death.mariage_count %></td>
+					<td class="text-center col-md-2"><%= death.t%></td>
+				</tr>
+				<% end %>
+				<% end %>
+				<%if @type == :divorce then%>
+				<% @deaths.each do |death|%>
+				<tr>
+					<td class="text-center col-md-2"><%= death.y %></td>
+					<td class="text-center col-md-2"><%= death.women_age %></td>
+					<td class="text-center col-md-2"><%= death.man_age %></td>
+					<td class="text-center col-md-2"><%= death.x %></td>
+					<td class="text-center col-md-2"><%= death.duration%></td>
+					<td class="text-center col-md-2"><%= death.gender%></td>
+					<td class="text-center col-md-2"><%= death.verdict%></td>
+					<td class="text-center col-md-2"><%= death.t%></td>
+				</tr>
+				<% end %>
+				<% end %>
+				<%if @type == :migration then%>
+				<% @deaths.each do |death|%>
+				<tr>
+					<td class="text-center col-md-2"><%= death.y %></td>
+					<td class="text-center col-md-2"><%= death.age %></td>
+					<td class="text-center col-md-2"><%= death.fiance_age %></td>
+					<td class="text-center col-md-2"><%= death.x %></td>
+					<td class="text-center col-md-2"><%= death.emigrants%></td>
+					<td class="text-center col-md-2"><%= death.imigrants%></td>
+					<td class="text-center col-md-2"><%= death.reason%></td>
+					<td class="text-center col-md-2"><%= death.gender%></td>
+					<td class="text-center col-md-2"><%= death.t%></td>
+				</tr>
+				<% end %>
+				<% end %>
+			</tbody>
+		</table>
+	</div>
