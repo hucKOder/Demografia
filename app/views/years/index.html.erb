@@ -1,10 +1,10 @@
 <h2 align="center">Môžes filtrovať v kategóriách: Úmrtnosť - Pôrodnosť - Sobáše - Rozvody - Migrácia</h2>
 <div class="container" align="center">
 	<%= form_tag(years_path, method: 'get') do %>
-	<%= text_field_tag :year, 'Zadaj rok' %>
-	<%= text_field_tag :town,'Zadaj mesto' %>
-	<%= text_field_tag :gender, 'Zadaj pohlavie'%>
-	<%= text_field_tag :demograf, 'Zadaj kategóriu'%>
+	<%= text_field_tag :year, nil, placeholder: "Zadaj rok" %>
+	<%= text_field_tag :town, nil,placeholder: "Zadaj mesto"%>
+	<%= text_field_tag :gender, nil, placeholder: "Zadaj pohlavie" %>
+      <%= select_tag(:demograf, options_for_select([['Úmrtnosť','umrtnost'],['Pôrodnosť','porodnost'],['Sobáše','sobase'],['Rozvody','rozvody'],['Migrácia','migracia']]),prompt: "Please Select") %>
 	<%= submit_tag 'Filter' %>
 	<% end %>
 </div>
@@ -17,7 +17,19 @@
 
 
 	<div class="container">
-		<h1 align="center">Štatistiky</h1>
+    <%if @type == :death then%>
+		  <h1 align="center">Štatistiky Úmrtí</h1>
+    <%elsif @type == :birth then%>
+        <h1 align="center">Štatistiky narodení</h1>
+        <%elsif @type == :marriage then%>
+        <h1 align="center">Štatistiky sobášov</h1>
+        <%elsif @type == :divorce then%>
+        <h1 align="center">Štatistiky rozvodov</h1>
+        <%elsif @type == :migration then%>
+        <h1 align="center">Štatistiky migrácií</h1>
+        <%else%>
+        <h1 align="center">Príklad zobrazenia Štatistík</h1>
+        <%end%>
 	</div>
 	<div class="span3">
 		<table class="table">
@@ -84,8 +96,6 @@
 				<tr>
 					<td class="text-center col-md-2"><%= death.y %></td>
 					<td class="text-center col-md-2"><%= death.age %></td>
-					<td class="text-center col-md-2"><%= death.fiance_age %></td>
-					<td class="text-center col-md-2"><%= death.x %></td>
 					<td class="text-center col-md-2"><%= death.emigrants%></td>
 					<td class="text-center col-md-2"><%= death.imigrants%></td>
 					<td class="text-center col-md-2"><%= death.reason%></td>

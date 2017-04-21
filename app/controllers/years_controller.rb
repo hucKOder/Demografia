@@ -30,19 +30,19 @@ class YearsController < ApplicationController
 		if params.has_key?(:year) && (valid(params[:year]) || valid(params[:town]) || valid(params[:gender]) || valid(params[:demograf])) then
 			
 			case params[:demograf]
-			when "Úmrtnosť"
+			when "umrtnost"
 				@deaths = Death.find_by_sql(filter(sql_death, "Úmrtnosť"))
 				@type = :death
-			when "Pôrodnosť"
+			when "porodnost"
 				@deaths = Birth.find_by_sql(filter(sql_birth, "Pôrodnosť"))
 				@type = :birth
-			when "Sobáše"
+			when "sobase"
 				@deaths = Mariage.find_by_sql(filter(sql_marriage, "Sobáše"))
 				@type = :marriage
-			when "Rozvody"
+			when "rozvody"
 				@deaths = Divorce.find_by_sql(filter(sql_divorce, "Rozvody"))
 				@type = :divorce	
-			when "Migrácia"
+			when "migracia"
 				@deaths = Migration.find_by_sql(filter(sql_migration, "Migrácia"))
 				@type = :migration
 			end
@@ -95,7 +95,7 @@ class YearsController < ApplicationController
 
 		elsif type == "Rozvody"
 			"SELECT xx.year y, xx.women_age, xx.man_age, xx.x x, xx.duration, xx.gender_file_a_petition gender, xx.verdict, xx.z t
-			FROM (#{sql}) as xx #{par} LIMIT 10000"
+			FROM (#{sql}) as xx #{par}"
 		else
 			"SELECT xx.age age, xx.x x, xx.gender gender, xx.z t, xx.year y 
 			FROM (#{sql}) as xx #{par}"
