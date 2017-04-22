@@ -1,3 +1,9 @@
+<div class="alert alert-info" id="notice" align="center" role="alert"><%= notice %>
+  <div>
+    Môžete pridávať ďalšie záznamy!
+  </div>
+</div>
+
 <div class="container">
   <div class="row" align="center">
     <button class="btn btn-primary" id="death">Chcem pridať nový záznam o úmrtiach!</button>
@@ -47,34 +53,32 @@
       <%= text_field_tag :number, nil,placeholder: "Zadaj podarie", class: "number line marriage"%>
 
 
-      <%= submit_tag 'Pridaj záznam' , class: "btn btn-primary line submit"%>
+      <%= submit_tag 'Pridaj záznam o úmrtiach' , class: "btn-primary line death"%>
+      <%= submit_tag 'Pridaj záznam o narodeniach' , class: "btn-primary line birth"%>
+      <%= submit_tag 'Pridaj záznam o rozvodoch' , class: "btn-primary line divorce"%>
+      <%= submit_tag 'Pridaj záznam o migráciách' , class: "btn-primary line migration"%>
+      <%= submit_tag 'Pridaj záznam o sobášoch' , class: "btn-primary line marriage"%>
   <% end %>
 </div>
-
 <script>
     $(document).on("click","#death",function(){
         $(".death ").css("display", "block");
         $(".btn").hide();
-        $(".submit ").show();
     });
     $(document).on("click","#birth",function(){
         $(".birth").css("display", "block");
         $(".btn").hide();
-        $(".submit ").show();
     });
     $(document).on("click","#divorce",function(){
         $(".divorce").css("display", "block");
         $(".btn").hide();
-        $(".submit ").show();
     });
     $(document).on("click","#marriage",function(){
         $(".marriage").css("display", "block");
         $(".btn").hide();
-        $(".submit ").show();
     });
     $(document).on("click","#migration",function(){
         $(".migration").css("display", "block");
         $(".btn").hide();
-        $(".submit ").show();
     });
 </script>
