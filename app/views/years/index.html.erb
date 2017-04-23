@@ -44,6 +44,7 @@
 				<%if @type == :death then%>
 				<% @deaths.each do |death|%>
 				<tr>
+          <td class="text-center col-md-2"><%= link_to 'Vybrať', edits_path(:items=>{:year => death.y, :age => death.age, :count => death.x, :gender => death.gender, :town => death.t, :type => "death"}), class: "btn btn-primary"%></td>
 					<td class="text-center col-md-2"><%= death.y %></td>
 					<td class="text-center col-md-2"><%= death.age %></td>
 					<td class="text-center col-md-2"><%= death.x %></td>
@@ -67,7 +68,7 @@
 				<% end %>
 				<%if @type == :marriage then%>
 				<% @deaths.each do |death|%>
-				<tr>
+				<tr data-link="<%= addforms_path(death) %>">
 					<td class="text-center col-md-2"><%= death.y %></td>
 					<td class="text-center col-md-2"><%= death.bride_age %></td>
 					<td class="text-center col-md-2"><%= death.fiance_age %></td>
@@ -107,3 +108,9 @@
 			</tbody>
 		</table>
 	</div>
+
+<script>
+    $("tr[data-link]").click(function() {
+        window.location = $(this).data("link")
+    })
+</script>

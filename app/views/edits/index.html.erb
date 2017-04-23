@@ -1,0 +1,11 @@
+<%if @x[:type] == "death" then%>
+<h3 align="center">
+  Údaj o úmrtí, čo chcete s ním ďalej urobiť?
+</h3>
+    <div>
+      Popis:
+      <p>Rok: <%= @x[:year] %>, Vek: <%= @x[:age] %>, Počet: <%= @x[:count] %>, Pohlavie: <%= @x[:gender] %>, Mesto: <%= @x[:town] %></p>
+      <%= link_to 'Vymaž záznam', delete_edits_path(), :confirm => "Are you sure?"%>
+    </div>
+<%end%>
+
