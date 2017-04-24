@@ -8,11 +8,13 @@
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
   <body>
+  <div id="wrap">
   <%= render partial: "shared/navbar" %>
   <%= render partial: "shared/carousel" %>
 
   <%= yield %>
   
-    <%= render partial: "shared/footer" %>
+  <%= render partial: "shared/footer" %>
+  </div>
   </body>
 </html>

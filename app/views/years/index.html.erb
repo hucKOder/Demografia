@@ -4,7 +4,7 @@
 	<%= text_field_tag :year, nil, placeholder: "Zadaj rok" %>
 	<%= text_field_tag :town, nil,placeholder: "Zadaj mesto"%>
 	<%= text_field_tag :gender, nil, placeholder: "Zadaj pohlavie" %>
-      <%= select_tag(:demograf, options_for_select([['Úmrtnosť','umrtnost'],['Pôrodnosť','porodnost'],['Sobáše','sobase'],['Rozvody','rozvody'],['Migrácia','migracia']]),prompt: "Please Select") %>
+      <%= select_tag(:demograf, options_for_select([['Úmrtnosť','umrtnost'],['Pôrodnosť','porodnost'],['Sobáše','sobase'],['Rozvody','rozvody'],['Migrácia','migracia']])) %>
 	<%= submit_tag 'Filter' %>
 	<% end %>
 </div>
@@ -35,6 +35,7 @@
 		<table class="table">
 			<thead>
 				<tr>
+          <th class="text-center col-md-2">Uprav</th>
 					<% table[@type].each do |type|%>
 					<th class="text-center col-md-2"><%= type %></th>
 					<% end %>
@@ -43,13 +44,13 @@
 			<tbody>
 				<%if @type == :death then%>
 				<% @deaths.each do |death|%>
-				<tr>
-          <td class="text-center col-md-2"><%= link_to 'Vybrať', edits_path(:items=>{:year => death.y, :age => death.age, :count => death.x, :gender => death.gender, :town => death.t, :type => "death"}), class: "btn btn-primary"%></td>
-					<td class="text-center col-md-2"><%= death.y %></td>
+				<tr class="highlight-row">
+          <td class="text-center col-md-2"><%= link_to 'Vybrať', edits_path(:id => death.id, :type => "deaths"), class: "btn btn-primary"%></td>
+					<td class="text-center col-md-2"><%= death.year %></td>
 					<td class="text-center col-md-2"><%= death.age %></td>
-					<td class="text-center col-md-2"><%= death.x %></td>
+					<td class="text-center col-md-2"><%= death.count %></td>
 					<td class="text-center col-md-2"><%= death.gender %></td>
-					<td class="text-center col-md-2"><%= death.t%></td>
+					<td class="text-center col-md-2"><%= death.z%></td>
 
 				</tr>
 				<% end %>
@@ -57,51 +58,55 @@
 
 				<%if @type == :birth then%>
 				<% @deaths.each do |death|%>
-				<tr>
-					<td class="text-center col-md-2"><%= death.y %></td>
-					<td class="text-center col-md-2"><%= death.age %></td>
-					<td class="text-center col-md-2"><%= death.x %></td>
+				<tr class="highlight-row">
+          <td class="text-center col-md-2"><%= link_to 'Vybrať', edits_path(:id => death.id, :type => "births"), class: "btn btn-primary"%></td>
+          <td class="text-center col-md-2"><%= death.year %></td>
+					<td class="text-center col-md-2"><%= death.mother_age %></td>
+					<td class="text-center col-md-2"><%= death.count %></td>
 					<td class="text-center col-md-2"><%= death.gender %></td>
-					<td class="text-center col-md-2"><%= death.t%></td>
+					<td class="text-center col-md-2"><%= death.z%></td>
 				</tr>
 				<% end %>
 				<% end %>
 				<%if @type == :marriage then%>
 				<% @deaths.each do |death|%>
-				<tr data-link="<%= addforms_path(death) %>">
-					<td class="text-center col-md-2"><%= death.y %></td>
+				<tr class="highlight-row">
+          <td class="text-center col-md-2"><%= link_to 'Vybrať', edits_path(:id => death.id, :type => "mariages"), class: "btn btn-primary"%></td>
+          <td class="text-center col-md-2"><%= death.year %></td>
 					<td class="text-center col-md-2"><%= death.bride_age %></td>
 					<td class="text-center col-md-2"><%= death.fiance_age %></td>
-					<td class="text-center col-md-2"><%= death.x %></td>
+					<td class="text-center col-md-2"><%= death.count %></td>
 					<td class="text-center col-md-2"><%= death.mariage_count %></td>
-					<td class="text-center col-md-2"><%= death.t%></td>
+					<td class="text-center col-md-2"><%= death.z%></td>
 				</tr>
 				<% end %>
 				<% end %>
 				<%if @type == :divorce then%>
 				<% @deaths.each do |death|%>
-				<tr>
-					<td class="text-center col-md-2"><%= death.y %></td>
+				<tr class="highlight-row">
+          <td class="text-center col-md-2"><%= link_to 'Vybrať', edits_path(:id => death.id, :type => "divorces"), class: "btn btn-primary"%></td>
+          <td class="text-center col-md-2"><%= death.year %></td>
 					<td class="text-center col-md-2"><%= death.women_age %></td>
 					<td class="text-center col-md-2"><%= death.man_age %></td>
-					<td class="text-center col-md-2"><%= death.x %></td>
+					<td class="text-center col-md-2"><%= death.count %></td>
 					<td class="text-center col-md-2"><%= death.duration%></td>
-					<td class="text-center col-md-2"><%= death.gender%></td>
+					<td class="text-center col-md-2"><%= death.gender_file_a_petition%></td>
 					<td class="text-center col-md-2"><%= death.verdict%></td>
-					<td class="text-center col-md-2"><%= death.t%></td>
+					<td class="text-center col-md-2"><%= death.z%></td>
 				</tr>
 				<% end %>
 				<% end %>
 				<%if @type == :migration then%>
 				<% @deaths.each do |death|%>
-				<tr>
-					<td class="text-center col-md-2"><%= death.y %></td>
+				<tr class="highlight-row">
+          <td class="text-center col-md-2"><%= link_to 'Vybrať', edits_path(:id => death.id, :type => "migrations"), class: "btn btn-primary"%></td>
+          <td class="text-center col-md-2"><%= death.year %></td>
 					<td class="text-center col-md-2"><%= death.age %></td>
 					<td class="text-center col-md-2"><%= death.emigrants%></td>
 					<td class="text-center col-md-2"><%= death.imigrants%></td>
 					<td class="text-center col-md-2"><%= death.reason%></td>
 					<td class="text-center col-md-2"><%= death.gender%></td>
-					<td class="text-center col-md-2"><%= death.t%></td>
+					<td class="text-center col-md-2"><%= death.z%></td>
 				</tr>
 				<% end %>
 				<% end %>

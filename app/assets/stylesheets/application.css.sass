@@ -18,28 +18,31 @@
 @import "bootstrap"
 
 
+html
+  position: relative
+  min-height: 100%
+
 body
   font-family: -apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif
+  margin: 0 0 100px
 
-footer
-  display: block
 .size
   font-size: 180%
 
 .col-half-offset
   margin-left: 4.166666667%
   font-size: 150%
-.bd-footer
-  position: fixed
-  height: 100px
+.footer
+  position: absolute
+  display: block
   bottom: 0
   width: 100%
-  padding: 4rem 0
-  margin-top: 4rem
-  font-size: 85%
-  text-align: center
+  height: 60px
   background-color: #f7f7f7
 
+.credit
+  position: absolute
+  bottom: 0
 .text-muted
   color: #636c72!important
 

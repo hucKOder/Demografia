@@ -1,11 +1,44 @@
-<%if @x[:type] == "death" then%>
+<%if @x == "deaths" then%>
 <h3 align="center">
-  Údaj o úmrtí, čo chcete s ním ďalej urobiť?
+  Údaj o úmrtiach, čo chcete s ním ďalej urobiť?
 </h3>
-    <div>
-      Popis:
-      <p>Rok: <%= @x[:year] %>, Vek: <%= @x[:age] %>, Počet: <%= @x[:count] %>, Pohlavie: <%= @x[:gender] %>, Mesto: <%= @x[:town] %></p>
-      <%= link_to 'Vymaž záznam', delete_edits_path(), :confirm => "Are you sure?"%>
+    <div align="center">
+      <%= link_to 'Vymaž záznam', new_edit_path(:id => @id, type: @x), class: "btn btn-primary"%>
     </div>
 <%end%>
 
+<%if @x == "births" then%>
+    <h3 align="center">
+      Údaj o narodeniach, čo chcete s ním ďalej urobiť?
+    </h3>
+    <div align="center">
+      <%= link_to 'Vymaž záznam', new_edit_path(:id => @id, type: @x), class: "btn btn-primary"%>
+    </div>
+<%end%>
+
+<%if @x == "mariages" then%>
+    <h3 align="center">
+      Údaj o sobášoch, čo chcete s ním ďalej urobiť?
+    </h3>
+    <div align="center">
+      <%= link_to 'Vymaž záznam', new_edit_path(:id => @id, type: @x), class: "btn btn-primary"%>
+    </div>
+<%end%>
+
+<%if @x == "divorces" then%>
+    <h3 align="center">
+      Údaj o rozvodoch, čo chcete s ním ďalej urobiť?
+    </h3>
+    <div align="center">
+      <%= link_to 'Vymaž záznam', new_edit_path(:id => @id, type: @x), class: "btn btn-primary"%>
+    </div>
+<%end%>
+
+<%if @x == "migrations" then%>
+    <h3 align="center">
+      Údaj o migráciách, čo chcete s ním ďalej urobiť?
+    </h3>
+    <div align="center">
+      <%= link_to 'Vymaž záznam', new_edit_path(:id => @id, type: @x), class: "btn btn-primary"%>
+    </div>
+<%end%>

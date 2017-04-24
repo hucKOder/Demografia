@@ -33,7 +33,6 @@ class AddformsController < ApplicationController
       redirect_to addforms_path, flash: { notice: "Neboli vyplnené všetky polia! Záznam nebol pridaný!"}
     end
 
-
   end
 
   def index
