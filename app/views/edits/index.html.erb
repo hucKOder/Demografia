@@ -1,44 +1,81 @@
+<h3 align="center">Čo chcete ďalej urobiť so záznamom?</h3>
+
+<div class="container" align="center">
+  <%= link_to 'Vymaž záznam', new_edit_path(:id => @id, type: @x), class: "btn btn-primary"%>
+</div>
+
+<div class="container" align="center">
+  <%= form_tag(edit_edit_path(:id => @id), method: 'get')  do %>
+      <h3 class="death line">Uprav záznam o úmrtiach</h3>
+      <h3 class="birth line">Uprav záznam o narodeniach</h3>
+      <h3 class="marriage line">Uprav záznam o sobášoch</h3>
+      <h3 class="divorce line">Uprav záznam o rozvodoch</h3>
+      <h3 class="migration line">Uprav záznam o migráciách</h3>
+
+      <%= text_field_tag :year, nil, placeholder: "Zadaj rok" , class: "year line death birth marriage divorce migration"%>
+      <%= text_field_tag :town, nil,placeholder: "Zadaj mesto", class: "town line death birth marriage divorce migration"%>
+      <%= text_field_tag :gender, nil, placeholder: "Zadaj pohlavie", class: "gender line death birth migration" %>
+      <%= text_field_tag :age, nil, placeholder: "Zadaj vek", class: "age line death migration" %>
+
+      <%= text_field_tag :emigrants, nil,placeholder: "Zadaj počet vysťahovalcov", class: "emigrants line migration"%>
+      <%= text_field_tag :imigrants, nil,placeholder: "Zadaj počet prisťahovalcov", class: "imigrants line migration"%>
+      <%= text_field_tag :reason, nil, placeholder: "Zadaj dôvod", class: "reason line migration" %>
+
+      <%= text_field_tag :mother_age, nil, placeholder: "Zadaj vek matky", class: "mother_age line birth" %>
+      <%= text_field_tag :count, nil, placeholder: "Zadaj počet", class: "count line death birth divorce marriage"  %>
+
+      <%= text_field_tag :gender_petition, nil, placeholder: "Pohlavie podalo návrh", class: "gender_petition line divorce" %>
+      <%= text_field_tag :women_age, nil,placeholder: "Zadaj vek ženy", class: "women_age line divorce"%>
+      <%= text_field_tag :man_age, nil,placeholder: "Zadaj vek muža", class: "man_age line divorce"%>
+      <%= text_field_tag :verdict, nil, placeholder: "Zadaj rozhodnutie", class: "verdict line divorce" %>
+      <%= text_field_tag :duration, nil,placeholder: "Zadaj dĺžku trvania", class: "duration line divorce"%>
+
+
+      <%= text_field_tag :bride_age, nil,placeholder: "Zadaj vek nevesty", class: "bride_age line marriage"%>
+      <%= text_field_tag :fiance_age, nil,placeholder: "Zadaj vek ženícha", class: "fiance_age line marriage"%>
+      <%= text_field_tag :number, nil,placeholder: "Zadaj podarie", class: "number line marriage"%>
+
+      <%= submit_tag 'Uprav záznam o úmrtiach' , class: "btn-primary line death"%>
+      <%= submit_tag 'Uprav záznam o narodeniach' , class: "btn-primary line birth"%>
+      <%= submit_tag 'Uprav záznam o rozvodoch' , class: "btn-primary line divorce"%>
+      <%= submit_tag 'Uprav záznam o migráciách' , class: "btn-primary line migration"%>
+      <%= submit_tag 'Uprav záznam o sobášoch' , class: "btn-primary line marriage"%>
+
+
 <%if @x == "deaths" then%>
-<h3 align="center">
-  Údaj o úmrtiach, čo chcete s ním ďalej urobiť?
-</h3>
-    <div align="center">
-      <%= link_to 'Vymaž záznam', new_edit_path(:id => @id, type: @x), class: "btn btn-primary"%>
-    </div>
+    <script type="text/javascript" charset="utf-8">
+        $(".death ").css("display", "block");
+    </script>
+          <%= hidden_field_tag(:type, 'deaths') %>
 <%end%>
 
 <%if @x == "births" then%>
-    <h3 align="center">
-      Údaj o narodeniach, čo chcete s ním ďalej urobiť?
-    </h3>
-    <div align="center">
-      <%= link_to 'Vymaž záznam', new_edit_path(:id => @id, type: @x), class: "btn btn-primary"%>
-    </div>
+    <script type="text/javascript" charset="utf-8">
+        $(".birth ").css("display", "block");
+    </script>
+          <%= hidden_field_tag(:type, 'births') %>
 <%end%>
 
 <%if @x == "mariages" then%>
-    <h3 align="center">
-      Údaj o sobášoch, čo chcete s ním ďalej urobiť?
-    </h3>
-    <div align="center">
-      <%= link_to 'Vymaž záznam', new_edit_path(:id => @id, type: @x), class: "btn btn-primary"%>
-    </div>
+    <script type="text/javascript" charset="utf-8">
+        $(".marriage ").css("display", "block");
+    </script>
+          <%= hidden_field_tag(:type, 'mariages') %>
 <%end%>
 
 <%if @x == "divorces" then%>
-    <h3 align="center">
-      Údaj o rozvodoch, čo chcete s ním ďalej urobiť?
-    </h3>
-    <div align="center">
-      <%= link_to 'Vymaž záznam', new_edit_path(:id => @id, type: @x), class: "btn btn-primary"%>
-    </div>
+    <script type="text/javascript" charset="utf-8">
+        $(".divorce ").css("display", "block");
+    </script>
+          <%= hidden_field_tag(:type, 'divorces') %>
 <%end%>
 
 <%if @x == "migrations" then%>
-    <h3 align="center">
-      Údaj o migráciách, čo chcete s ním ďalej urobiť?
-    </h3>
-    <div align="center">
-      <%= link_to 'Vymaž záznam', new_edit_path(:id => @id, type: @x), class: "btn btn-primary"%>
-    </div>
+    <script type="text/javascript" charset="utf-8">
+        $(".migration ").css("display", "block");
+    </script>
+          <%= hidden_field_tag(:type, 'migrations') %>
 <%end%>
+
+  <% end %>
+</div>
