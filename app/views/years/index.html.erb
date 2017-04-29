@@ -5,7 +5,7 @@
 	<%= text_field_tag :town, nil,placeholder: "Zadaj mesto"%>
 	<%= text_field_tag :gender, nil, placeholder: "Zadaj pohlavie" %>
       <%= select_tag(:demograf, options_for_select([['Úmrtnosť','umrtnost'],['Pôrodnosť','porodnost'],['Sobáše','sobase'],['Rozvody','rozvody'],['Migrácia','migracia']])) %>
-	<%= submit_tag 'Filter' %>
+	<%= submit_tag 'Filter', class: "btn btn-primary" %>
 	<% end %>
 </div>
 

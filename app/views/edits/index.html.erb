@@ -58,7 +58,8 @@
       <%= text_field_tag :imigrants, nil,placeholder: "Zadaj počet prisťahovalcov", class: "imigrants line migration"%>
       </div>
 
-      <div data-toggle="tooltip" data-placement="top" title="Upravý dôvod. Formát: ">
+      <div data-toggle="tooltip" data-placement="top" title="Upravý dôvod. Formát: Zmena pracoviska, Sobas, Studium, Rozvod, Nasledovanie rodinneho prislusnika,
+      Bytove dovody, Ine dovody">
         <%= text_field_tag :reason, nil, placeholder: "Zadaj dôvod", class: "reason line migration" %>
       </div>
 
@@ -82,7 +83,7 @@
       <%= text_field_tag :man_age, nil,placeholder: "Zadaj vek muža", class: "man_age line divorce"%>
       </div>
 
-      <div data-toggle="tooltip" data-placement="top" title="Upravý rozhodnutie. Formát: ">
+      <div data-toggle="tooltip" data-placement="top" title="Upravý rozhodnutie. Formát: Manzelstvo rozvedene, Navrh zamietnuty, Navrh vzaty spat, Ine rozhodnutie" >
         <%= text_field_tag :verdict, nil, placeholder: "Zadaj rozhodnutie", class: "verdict line divorce" %>
       </div>
 
@@ -98,7 +99,7 @@
         <%= text_field_tag :fiance_age, nil,placeholder: "Zadaj vek ženícha", class: "fiance_age line marriage"%>
       </div>
 
-      <div data-toggle="tooltip" data-placement="top" title="Upravý poradie. Formát: ">
+      <div data-toggle="tooltip" data-placement="top" title="Upravý poradie. Formát: Prvy v poradi, Vyssieho poradia">
         <%= text_field_tag :mariage_count, nil,placeholder: "Zadaj podarie", class: "number line marriage"%>
       </div>
 
@@ -109,7 +110,7 @@
         <%= submit_tag 'Uprav záznam o migráciách' , class: "btn-primary line migration"%>
         <%= submit_tag 'Uprav záznam o sobášoch' , class: "btn-primary line marriage"%>
       </div>
-
+      <%= hidden_field_tag(:town, @town) %>
         <%if @x == "deaths" then%>
     <script type="text/javascript" charset="utf-8">
         $(".death ").css("display", "block");

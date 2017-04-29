@@ -16,13 +16,13 @@ class EditsController < ApplicationController
   def edit
     #updating record with transaction
     unless params[:town_id] == ""
-    town = Town.find_by(name: "#{params[:town_id]}")
+      @town = Town.find_by(name: "#{params[:town_id]}")
 
-    unless town.present?
+    unless @town.present?
       redirect_to edits_path(:id => params[:id], :type => params[:type], :town => params[:town]), flash: { notice: "Neplatné mesto!"}
       return
     else
-      params[:town_id] = town.id
+      params[:town_id] = @town.id
     end
     end
 
@@ -46,6 +46,7 @@ class EditsController < ApplicationController
       redirect_to edits_path(:id => params[:id], :type => params[:type], :town => params[:town]), flash: { notice: record.errors.first.second}
     else
       @message = record
+      @town = params[:town]
     end
 
     #sql = "BEGIN; UPDATE #{params[:type]}

@@ -1,2 +1,11 @@
-<h3 align="center">Záznam bol zmenený na: </h3>
-<p align="center"><%= @message %></p>
+<h3 align="center">Záznam bol zmenený!</h3>
+<div class="container" align="center" style="margin-top: 15px;">
+  <h3>Informácie o zázname:</h3>
+  <% @message.attributes.each do |key, value| %>
+      <%if key != "town_id" %>
+          <p><%="#{key}: #{value}"%></p>
+      <%else%>
+          <p><%="town: #{@town}"%></p>
+      <%end%>
+  <%end%>
+</div>

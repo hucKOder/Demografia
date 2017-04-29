@@ -11,5 +11,5 @@ class Migration < ApplicationRecord
   validates :town_id, presence: true
 
   validates_uniqueness_of :year, { :scope => [:town_id, :emigrants, :imigrants, :age, :gender, :reason],
-                                   message: "Záznam v tomto roku so zadaným počtom emigrantov, v zadanom veku a so zadaným dôvodom pre dané mesto už existuje!" }
+                                   message: "Záznam v tomto roku so zadaným počtom emigrantov, v zadanom veku a so zadaným dôvodom, pre dané mesto už existuje!" }
 end

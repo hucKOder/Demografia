@@ -9,5 +9,5 @@ class Mariage < ApplicationRecord
 	validates :town_id, presence: true
 
 	validates_uniqueness_of :year, { :scope => [:town_id, :bride_age, :fiance_age, :mariage_count],
-                                   message: "Záznam v tomto roku s daným vekom nevesty, ženícha pre dané mesto už existuje!" }
+                                   message: "Záznam v tomto roku s daným vekom nevesty a ženícha pre dané mesto už existuje!" }
 end

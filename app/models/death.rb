@@ -7,5 +7,5 @@ class Death < ApplicationRecord
   validates :gender, :acceptance => { :accept => ['Female', 'Male'], message: "Pohlavie môže byť iba Male alebo Female" }
   validates :town_id, presence: true
 
-  validates_uniqueness_of :year, { :scope => [:town_id, :age, :gender], message: "Záznam v tohoto roku, veku a pohlavia už existuje!" }
+  validates_uniqueness_of :year, { :scope => [:town_id, :age, :gender], message: "Záznam o tomto roku, veku a pohlaví už existuje!" }
 end

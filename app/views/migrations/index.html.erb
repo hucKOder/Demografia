@@ -172,7 +172,7 @@
           <% @arr.insert(0,["Rok", "Počet"])%>
         <%else%>
           <% @arr = @information.map{ |i| [i.y.to_s, i.x, i.i]}%>
-          <% @arr.insert(0,["Rok", "Vysťahovalci", "Prisťahovalci"])%>
+          <% @arr.insert(0,["Rok", "Vysťahovaný", "Prisťahovaný"])%>
         <% end %>
 
         var myJsArray = <%=raw @arr%>;
@@ -189,9 +189,11 @@
     }
 </script>
 
+<%if !@information.empty?%>
 <div class="container" align="center">
 <div id="curve_chart" style="width: 900px; height: 500px; margin-bottom: 50px;"></div>
 </div>
+<%end%>
 
 <div class="span4" align="center">
   <table class="table">

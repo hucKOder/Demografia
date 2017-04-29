@@ -12,5 +12,5 @@ class Divorce < ApplicationRecord
   validates :gender_file_a_petition, :acceptance => { :accept => ['Female', 'Male'], message: "Pohlavie, ktoré podalo návrh môže byť iba Male alebo Female" }
 
   validates_uniqueness_of :year, { :scope => [:town_id, :women_age, :man_age, :verdict, :gender_file_a_petition, :duration],
-																	 message: "Záznam v tomto roku s daným vekom muža, ženy atď. pre dané mesto už existuje!" }
+																	 message: "Záznam v tomto roku s daným vekom muža, ženy atď; pre dané mesto už existuje!" }
 end

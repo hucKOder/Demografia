@@ -4,13 +4,39 @@
   <hr/>
 </div>
 <div class='container'>
+  <h3>Generované kraje:</h3>
 	<% @counties.each_slice(6) do |counties| %>
   <div class="row">
+
     <% counties.each do |county|%>
-    <div class='col-xs-2' align="center">
-      <h4><%= link_to county.name, cantons_path(:county_id => county.id) %></h4>
-    </div>
+        <%if county.name == "Bratislavský"%>
+            <% @last = counties%>
+            <%break%>
+        <%end%>
+        <%if !@last.nil?%>
+            <% @county = counties%>
+            <%break%>
+        <%end%>
+        <div class='col-xs-2' align="center">
+          <h4><%= link_to county.name, cantons_path(:county_id => county.id) %></h4>
+        </div>
     <% end %>
   </div>
   <% end %>
+  <h3>Slovenské kraje:</h3>
+  <div class="row">
+    <% @last.each do |county|%>
+        <%if county.name == "Michigan" || county.name == "Connecticut"%>
+            <%next%>
+        <%end%>
+    <div class='col-xs-2' align="center">
+      <h4><%= link_to county.name, cantons_path(:county_id => county.id) %></h4>
+    </div>
+    <%end%>
+    <% @county.each do |county|%>
+        <div class='col-xs-2' align="center">
+          <h4><%= link_to county.name, cantons_path(:county_id => county.id) %></h4>
+        </div>
+    <%end%>
+  </div>
 </div>
