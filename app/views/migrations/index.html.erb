@@ -160,3 +160,69 @@
 </div>
 <%end%>
 
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+    google.charts.load('current', {'packages':['corechart']});
+    google.charts.setOnLoadCallback(drawChart);
+
+    function drawChart() {
+        <%@arr = []%>
+        <% if @type != "migrations" then%>
+          <% @arr = @information.map{ |i| [i.y.to_s, i.x]} %>
+          <% @arr.insert(0,["Rok", "Počet"])%>
+        <%else%>
+          <% @arr = @information.map{ |i| [i.y.to_s, i.x, i.i]}%>
+          <% @arr.insert(0,["Rok", "Vysťahovalci", "Prisťahovalci"])%>
+        <% end %>
+
+        var myJsArray = <%=raw @arr%>;
+        var data = google.visualization.arrayToDataTable(myJsArray);
+
+        var options = {
+            title: 'Priebeh podľa rokov',
+            legend: { position: 'bottom' }
+        };
+
+        var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+
+        chart.draw(data, options);
+    }
+</script>
+
+<div class="container" align="center">
+<div id="curve_chart" style="width: 900px; height: 500px; margin-bottom: 50px;"></div>
+</div>
+
+<div class="span4" align="center">
+  <table class="table">
+    <thead>
+    <tr>
+      <th class="text-center col-md-2">Rok: </th>
+      <% @information.each do |year|%>
+          <th class="text-center col-md-2"><%= year.y %></th>
+      <% end %>
+
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <%if @information == "migrations" then%>
+          <td class="text-center col-md-2">Emigranti: </td>
+      <%else%>
+          <td class="text-center col-md-2">Počet: </td>
+      <% end %>
+      <% @information.each do |year|%>
+          <td class="text-center col-md-2"><%= year.x%></td>
+      <% end %>
+    </tr>
+    <%if @type == "migrations" then%>
+        <tr>
+          <td class="text-center col-md-2">Imigranti: </td>
+          <% @information.each do |year|%>
+              <td class="text-center col-md-2"><%= year.i%></td>
+          <% end %>
+        </tr>
+    <%end%>
+    </tbody>
+  </table>
+</div>
