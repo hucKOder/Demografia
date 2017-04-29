@@ -1,88 +1,157 @@
 <div class="alert alert-info" id="notice" align="center" role="alert">
   <%= notice %>
   <div>
-    Môžete pridávať ďalšie záznamy!
+    Detail záznamu
   </div>
 </div>
 
-<h3 align="center">Čo chcete ďalej urobiť so záznamom?</h3>
-
-<div class="container" align="center">
-  <%= link_to 'Vymaž záznam', new_edit_path(:id => @id, type: @x), class: "btn btn-primary"%>
+<h2 align="center">Čo chcete ďalej urobiť so záznamom?</h2>
+<div class="container">
+<div class="row">
+<div class="col-md-6" align="center">
+  <div >
+  <h3>Informácie o zázname:</h3>
+  <% @info.attributes.each do |key, value| %>
+      <%if key != "town_id" %>
+        <p><%="#{key}: #{value}"%></p>
+      <%else%>
+          <p><%="town: #{@town}"%></p>
+      <%end%>
+  <%end%>
+  </div>
 </div>
 
-<div class="container" align="center">
-  <%= form_tag(edit_edit_path(:id => @id), method: 'get')  do %>
+<div class="col-md-6" align="center">
+
+  <div data-toggle="tooltip" data-placement="top" title="Ste si istý, že chcete záznam vymazať?">
+    <%= link_to 'Vymaž záznam', new_edit_path(:id => @id, type: @x), class: "btn btn-primary"%>
+  </div>
+
+      <%= form_tag(edit_edit_path(:id => @id), method: 'get')  do %>
       <h3 class="death line">Uprav záznam o úmrtiach</h3>
       <h3 class="birth line">Uprav záznam o narodeniach</h3>
       <h3 class="marriage line">Uprav záznam o sobášoch</h3>
       <h3 class="divorce line">Uprav záznam o rozvodoch</h3>
       <h3 class="migration line">Uprav záznam o migráciách</h3>
 
+      <div data-toggle="tooltip" data-placement="top" title="Upravý rok. Momentálne sa nachádzajú roky od 1996 do 2016">
       <%= text_field_tag :year, nil, placeholder: "Zadaj rok" , class: "year line death birth marriage divorce migration"%>
+      </div>
+
+      <div data-toggle="tooltip" data-placement="top" title="Mesta (Databáza obsahuje aj všetky Slovenské obce)">
       <%= text_field_tag :town_id, nil,placeholder: "Zadaj mesto", class: "town line death birth marriage divorce migration"%>
-      <%= text_field_tag :gender, nil, placeholder: "Zadaj pohlavie", class: "gender line death birth migration" %>
+      </div>
+
+      <div data-toggle="tooltip" data-placement="top" title="Pohlavie vo formáte - Male alebo Female">
+        <%= text_field_tag :gender, nil, placeholder: "Zadaj pohlavie", class: "gender line death birth migration" %>
+      </div>
+
+      <div data-toggle="tooltip" data-placement="top" title="Upravý vek">
       <%= text_field_tag :age, nil, placeholder: "Zadaj vek", class: "age line death migration" %>
+      </div>
 
+      <div data-toggle="tooltip" data-placement="top" title="Upravý počet vysťahovalcov">
       <%= text_field_tag :emigrants, nil,placeholder: "Zadaj počet vysťahovalcov", class: "emigrants line migration"%>
+      </div>
+
+      <div data-toggle="tooltip" data-placement="top" title="Upravý počet prisťahovalcov">
       <%= text_field_tag :imigrants, nil,placeholder: "Zadaj počet prisťahovalcov", class: "imigrants line migration"%>
-      <%= text_field_tag :reason, nil, placeholder: "Zadaj dôvod", class: "reason line migration" %>
+      </div>
 
+      <div data-toggle="tooltip" data-placement="top" title="Upravý dôvod. Formát: ">
+        <%= text_field_tag :reason, nil, placeholder: "Zadaj dôvod", class: "reason line migration" %>
+      </div>
+
+      <div data-toggle="tooltip" data-placement="top" title="Upravý vek matky">
       <%= text_field_tag :mother_age, nil, placeholder: "Zadaj vek matky", class: "mother_age line birth" %>
-      <%= text_field_tag :count, nil, placeholder: "Zadaj počet", class: "count line death birth divorce marriage"  %>
+      </div>
 
+      <div data-toggle="tooltip" data-placement="top" title="Upravý počet">
+        <%= text_field_tag :count, nil, placeholder: "Zadaj počet", class: "count line death birth divorce marriage"  %>
+      </div>
+
+      <div data-toggle="tooltip" data-placement="top" title="Pohlavie vo formáte - Male alebo Female">
       <%= text_field_tag :gender_file_a_petition, nil, placeholder: "Pohlavie podalo návrh", class: "gender_petition line divorce" %>
+      </div>
+
+      <div data-toggle="tooltip" data-placement="top" title="Upravý vek ženy">
       <%= text_field_tag :women_age, nil,placeholder: "Zadaj vek ženy", class: "women_age line divorce"%>
+      </div>
+
+      <div data-toggle="tooltip" data-placement="top" title="Upravý vek muža">
       <%= text_field_tag :man_age, nil,placeholder: "Zadaj vek muža", class: "man_age line divorce"%>
-      <%= text_field_tag :verdict, nil, placeholder: "Zadaj rozhodnutie", class: "verdict line divorce" %>
-      <%= text_field_tag :duration, nil,placeholder: "Zadaj dĺžku trvania", class: "duration line divorce"%>
+      </div>
 
+      <div data-toggle="tooltip" data-placement="top" title="Upravý rozhodnutie. Formát: ">
+        <%= text_field_tag :verdict, nil, placeholder: "Zadaj rozhodnutie", class: "verdict line divorce" %>
+      </div>
 
-      <%= text_field_tag :bride_age, nil,placeholder: "Zadaj vek nevesty", class: "bride_age line marriage"%>
-      <%= text_field_tag :fiance_age, nil,placeholder: "Zadaj vek ženícha", class: "fiance_age line marriage"%>
-      <%= text_field_tag :mariage_count, nil,placeholder: "Zadaj podarie", class: "number line marriage"%>
+      <div data-toggle="tooltip" data-placement="top" title="Upravý trvanie">
+        <%= text_field_tag :duration, nil,placeholder: "Zadaj dĺžku trvania", class: "duration line divorce"%>
+      </div>
 
-      <%= submit_tag 'Uprav záznam o úmrtiach' , class: "btn-primary line death"%>
-      <%= submit_tag 'Uprav záznam o narodeniach' , class: "btn-primary line birth"%>
-      <%= submit_tag 'Uprav záznam o rozvodoch' , class: "btn-primary line divorce"%>
-      <%= submit_tag 'Uprav záznam o migráciách' , class: "btn-primary line migration"%>
-      <%= submit_tag 'Uprav záznam o sobášoch' , class: "btn-primary line marriage"%>
+      <div data-toggle="tooltip" data-placement="top" title="Upravý vek nevesty">
+        <%= text_field_tag :bride_age, nil,placeholder: "Zadaj vek nevesty", class: "bride_age line marriage"%>
+      </div>
 
+      <div data-toggle="tooltip" data-placement="top" title="Upravý vek ženícha">
+        <%= text_field_tag :fiance_age, nil,placeholder: "Zadaj vek ženícha", class: "fiance_age line marriage"%>
+      </div>
 
-<%if @x == "deaths" then%>
+      <div data-toggle="tooltip" data-placement="top" title="Upravý poradie. Formát: ">
+        <%= text_field_tag :mariage_count, nil,placeholder: "Zadaj podarie", class: "number line marriage"%>
+      </div>
+
+      <div data-toggle="tooltip" data-placement="top" title="TIP: Stačí vyplniť polia, ktoré chceme upraviť">
+        <%= submit_tag 'Uprav záznam o úmrtiach' , class: "btn-primary line death"%>
+        <%= submit_tag 'Uprav záznam o narodeniach' , class: "btn-primary line birth"%>
+        <%= submit_tag 'Uprav záznam o rozvodoch' , class: "btn-primary line divorce"%>
+        <%= submit_tag 'Uprav záznam o migráciách' , class: "btn-primary line migration"%>
+        <%= submit_tag 'Uprav záznam o sobášoch' , class: "btn-primary line marriage"%>
+      </div>
+
+        <%if @x == "deaths" then%>
     <script type="text/javascript" charset="utf-8">
         $(".death ").css("display", "block");
     </script>
           <%= hidden_field_tag(:type, 'deaths') %>
-<%end%>
+        <%end%>
 
-<%if @x == "births" then%>
+        <%if @x == "births" then%>
     <script type="text/javascript" charset="utf-8">
         $(".birth ").css("display", "block");
     </script>
           <%= hidden_field_tag(:type, 'births') %>
-<%end%>
+        <%end%>
 
-<%if @x == "mariages" then%>
+        <%if @x == "mariages" then%>
     <script type="text/javascript" charset="utf-8">
         $(".marriage ").css("display", "block");
     </script>
           <%= hidden_field_tag(:type, 'mariages') %>
-<%end%>
+        <%end%>
 
-<%if @x == "divorces" then%>
+        <%if @x == "divorces" then%>
     <script type="text/javascript" charset="utf-8">
         $(".divorce ").css("display", "block");
     </script>
           <%= hidden_field_tag(:type, 'divorces') %>
-<%end%>
+        <%end%>
 
-<%if @x == "migrations" then%>
+        <%if @x == "migrations" then%>
     <script type="text/javascript" charset="utf-8">
         $(".migration ").css("display", "block");
     </script>
           <%= hidden_field_tag(:type, 'migrations') %>
-<%end%>
+        <%end%>
 
-  <% end %>
+    <% end %>
+  <script>
+  $(function () {
+    $('[data-toggle="tooltip"]').tooltip();
+  });
+  </script>
+</div>
+
+</div>
 </div>

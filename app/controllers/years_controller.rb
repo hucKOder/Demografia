@@ -15,34 +15,61 @@ class YearsController < ApplicationController
 		sql_migration = "SELECT migrations.id, year, age, emigrants, imigrants, gender, t.name z, reason FROM migrations
 		JOIN towns t ON t.id = town_id"
 
+		info = ""
 		par = ""
 		@deaths = 0
 		@type = 0
 
 		if params.has_key?(:year) && (valid(params[:year]) || valid(params[:town]) || valid(params[:gender]) || valid(params[:demograf])) then
-			
+			table = ""
 			case params[:demograf]
 			when "umrtnost"
 				@deaths = Death.find_by_sql(filter(sql_death))
 				@type = :death
+          table = "deaths"
 			when "porodnost"
 				@deaths = Birth.find_by_sql(filter(sql_birth))
 				@type = :birth
+          table = "births"
 			when "sobase"
 				@deaths = Mariage.find_by_sql(filter(sql_marriage))
 				@type = :marriage
+          table = "mariages"
 			when "rozvody"
 				@deaths = Divorce.find_by_sql(filter(sql_divorce))
-				@type = :divorce	
+				@type = :divorce
+          table = "divorces"
 			when "migracia"
 				@deaths = Migration.find_by_sql(filter(sql_migration))
 				@type = :migration
+          table = "migrations"
 			end
 
 		else
 			@deaths = Death.find_by_sql("#{sql_death} LIMIT 2000")
 			@type = :death
-		end
+      table = "deaths"
+    end
+
+		info = "SELECT sum(#{table}.count) x, year y FROM #{table}
+							GROUP BY year
+							ORDER BY year ASC"
+    case @type
+      when :death
+        @years = Death.find_by_sql(info)
+      when :birth
+        @years = Birth.find_by_sql(info)
+      when :divorce
+        @years = Divorce.find_by_sql(info)
+      when :marriage
+        @years = Mariage.find_by_sql(info)
+      when :migration
+       info = "SELECT sum(emigrants) x, sum(imigrants) i, year y FROM migrations
+        GROUP BY year
+        ORDER BY year ASC"
+        @years = Migration.find_by_sql(info)
+    end
+
 		
 	end
 

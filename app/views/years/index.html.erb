@@ -45,7 +45,7 @@
 				<%if @type == :death then%>
 				<% @deaths.each do |death|%>
 				<tr class="highlight-row">
-          <td class="text-center col-md-2"><%= link_to 'Vybrať', edits_path(:id => death.id, :type => "deaths"), class: "btn btn-primary"%></td>
+          <td class="text-center col-md-2"><%= link_to 'Vybrať', edits_path(:id => death.id, :type => "deaths", :town => death.z), class: "btn btn-primary"%></td>
 					<td class="text-center col-md-2"><%= death.year %></td>
 					<td class="text-center col-md-2"><%= death.age %></td>
 					<td class="text-center col-md-2"><%= death.count %></td>
@@ -59,7 +59,7 @@
 				<%if @type == :birth then%>
 				<% @deaths.each do |death|%>
 				<tr class="highlight-row">
-          <td class="text-center col-md-2"><%= link_to 'Vybrať', edits_path(:id => death.id, :type => "births"), class: "btn btn-primary"%></td>
+          <td class="text-center col-md-2"><%= link_to 'Vybrať', edits_path(:id => death.id, :type => "births", :town => death.z), class: "btn btn-primary"%></td>
           <td class="text-center col-md-2"><%= death.year %></td>
 					<td class="text-center col-md-2"><%= death.mother_age %></td>
 					<td class="text-center col-md-2"><%= death.count %></td>
@@ -71,7 +71,7 @@
 				<%if @type == :marriage then%>
 				<% @deaths.each do |death|%>
 				<tr class="highlight-row">
-          <td class="text-center col-md-2"><%= link_to 'Vybrať', edits_path(:id => death.id, :type => "mariages"), class: "btn btn-primary"%></td>
+          <td class="text-center col-md-2"><%= link_to 'Vybrať', edits_path(:id => death.id, :type => "mariages", :town => death.z), class: "btn btn-primary"%></td>
           <td class="text-center col-md-2"><%= death.year %></td>
 					<td class="text-center col-md-2"><%= death.bride_age %></td>
 					<td class="text-center col-md-2"><%= death.fiance_age %></td>
@@ -84,7 +84,7 @@
 				<%if @type == :divorce then%>
 				<% @deaths.each do |death|%>
 				<tr class="highlight-row">
-          <td class="text-center col-md-2"><%= link_to 'Vybrať', edits_path(:id => death.id, :type => "divorces"), class: "btn btn-primary"%></td>
+          <td class="text-center col-md-2"><%= link_to 'Vybrať', edits_path(:id => death.id, :type => "divorces", :town => death.z), class: "btn btn-primary"%></td>
           <td class="text-center col-md-2"><%= death.year %></td>
 					<td class="text-center col-md-2"><%= death.women_age %></td>
 					<td class="text-center col-md-2"><%= death.man_age %></td>
@@ -99,7 +99,7 @@
 				<%if @type == :migration then%>
 				<% @deaths.each do |death|%>
 				<tr class="highlight-row">
-          <td class="text-center col-md-2"><%= link_to 'Vybrať', edits_path(:id => death.id, :type => "migrations"), class: "btn btn-primary"%></td>
+          <td class="text-center col-md-2"><%= link_to 'Vybrať', edits_path(:id => death.id, :type => "migrations", :town => death.z), class: "btn btn-primary"%></td>
           <td class="text-center col-md-2"><%= death.year %></td>
 					<td class="text-center col-md-2"><%= death.age %></td>
 					<td class="text-center col-md-2"><%= death.emigrants%></td>
@@ -113,6 +113,40 @@
 			</tbody>
 		</table>
 	</div>
+<br/>
+<div class="span4" align="center">
+  <table class="table">
+    <thead>
+    <tr>
+      <th class="text-center col-md-2">Rok: </th>
+      <% @years.each do |year|%>
+          <th class="text-center col-md-2"><%= year.y %></th>
+      <% end %>
+
+    </tr>
+    </thead>
+    <tbody>
+            <tr>
+              <%if @type == :migration then%>
+                  <td class="text-center col-md-2">Emigranti: </td>
+              <%else%>
+                  <td class="text-center col-md-2">Počet: </td>
+              <% end %>
+              <% @years.each do |year|%>
+              <td class="text-center col-md-2"><%= year.x%></td>
+              <% end %>
+            </tr>
+            <%if @type == :migration then%>
+        <tr>
+          <td class="text-center col-md-2">Imigranti: </td>
+            <% @years.each do |year|%>
+              <td class="text-center col-md-2"><%= year.i%></td>
+            <% end %>
+        </tr>
+            <%end%>
+    </tbody>
+  </table>
+</div>
 
 <script>
     $("tr[data-link]").click(function() {

@@ -30,35 +30,82 @@
       <h3 class="marriage line">Pridaj záznam o sobášoch</h3>
       <h3 class="divorce line">Pridaj záznam o rozvodoch</h3>
       <h3 class="migration line">Pridaj záznam o migráciách</h3>
-      <%= text_field_tag :year, nil, placeholder: "Zadaj rok" , class: "year line death birth marriage divorce migration"%>
-      <%= text_field_tag :town, nil,placeholder: "Zadaj mesto", class: "town line death birth marriage divorce migration"%>
-      <%= text_field_tag :gender, nil, placeholder: "Zadaj pohlavie", class: "gender line death birth migration" %>
-      <%= text_field_tag :age, nil, placeholder: "Zadaj vek", class: "age line death migration" %>
 
-      <%= text_field_tag :emigrants, nil,placeholder: "Zadaj počet vysťahovalcov", class: "emigrants line migration"%>
-      <%= text_field_tag :imigrants, nil,placeholder: "Zadaj počet prisťahovalcov", class: "imigrants line migration"%>
-      <%= text_field_tag :reason, nil, placeholder: "Zadaj dôvod", class: "reason line migration" %>
+      <div data-toggle="tooltip" data-placement="top" title="Pridá rok. Momentálne sa nachádzajú roky od 1996 do 2016">
+        <%= text_field_tag :year, nil, placeholder: "Zadaj rok" , class: "year line death birth marriage divorce migration"%>
+      </div>
 
-      <%= text_field_tag :mother_age, nil, placeholder: "Zadaj vek matky", class: "mother_age line birth" %>
-      <%= text_field_tag :count, nil, placeholder: "Zadaj počet", class: "count line death birth divorce marriage"  %>
+      <div data-toggle="tooltip" data-placement="top" title="Mesta (Databáza obsahuje aj všetky Slovenské obce)">
+        <%= text_field_tag :town, nil,placeholder: "Zadaj mesto", class: "town line death birth marriage divorce migration"%>
+      </div>
 
-      <%= text_field_tag :gender_petition, nil, placeholder: "Pohlavie podalo návrh", class: "gender_petition line divorce" %>
-      <%= text_field_tag :women_age, nil,placeholder: "Zadaj vek ženy", class: "women_age line divorce"%>
-      <%= text_field_tag :man_age, nil,placeholder: "Zadaj vek muža", class: "man_age line divorce"%>
-      <%= text_field_tag :verdict, nil, placeholder: "Zadaj rozhodnutie", class: "verdict line divorce" %>
-      <%= text_field_tag :duration, nil,placeholder: "Zadaj dĺžku trvania", class: "duration line divorce"%>
+      <div data-toggle="tooltip" data-placement="top" title="Pohlavie vo formáte - Male alebo Female">
+        <%= text_field_tag :gender, nil, placeholder: "Zadaj pohlavie", class: "gender line death birth migration" %>
+      </div>
 
+      <div data-toggle="tooltip" data-placement="top" title="Pridá vek">
+        <%= text_field_tag :age, nil, placeholder: "Zadaj vek", class: "age line death migration" %>
+      </div>
 
-      <%= text_field_tag :bride_age, nil,placeholder: "Zadaj vek nevesty", class: "bride_age line marriage"%>
-      <%= text_field_tag :fiance_age, nil,placeholder: "Zadaj vek ženícha", class: "fiance_age line marriage"%>
-      <%= text_field_tag :number, nil,placeholder: "Zadaj podarie", class: "number line marriage"%>
+      <div data-toggle="tooltip" data-placement="top" title="Pridá počet vysťahovalcov">
+        <%= text_field_tag :emigrants, nil,placeholder: "Zadaj počet vysťahovalcov", class: "emigrants line migration"%>
+      </div>
 
+      <div data-toggle="tooltip" data-placement="top" title="Pridá počet prisťahovalcov">
+        <%= text_field_tag :imigrants, nil,placeholder: "Zadaj počet prisťahovalcov", class: "imigrants line migration"%>
+      </div>
 
-      <%= submit_tag 'Pridaj záznam o úmrtiach' , class: "btn-primary line death"%>
-      <%= submit_tag 'Pridaj záznam o narodeniach' , class: "btn-primary line birth"%>
-      <%= submit_tag 'Pridaj záznam o rozvodoch' , class: "btn-primary line divorce"%>
-      <%= submit_tag 'Pridaj záznam o migráciách' , class: "btn-primary line migration"%>
-      <%= submit_tag 'Pridaj záznam o sobášoch' , class: "btn-primary line marriage"%>
+      <div data-toggle="tooltip" data-placement="top" title="Pridá dôvod. Formát: ">
+        <%= text_field_tag :reason, nil, placeholder: "Zadaj dôvod", class: "reason line migration" %>
+      </div>
+
+      <div data-toggle="tooltip" data-placement="top" title="Pridá vek matky">
+        <%= text_field_tag :mother_age, nil, placeholder: "Zadaj vek matky", class: "mother_age line birth" %>
+      </div>
+
+      <div data-toggle="tooltip" data-placement="top" title="Pridá počet">
+        <%= text_field_tag :count, nil, placeholder: "Zadaj počet", class: "count line death birth divorce marriage"  %>
+      </div>
+
+      <div data-toggle="tooltip" data-placement="top" title="Pohlavie vo formáte - Male alebo Female">
+        <%= text_field_tag :gender_petition, nil, placeholder: "Pohlavie podalo návrh", class: "gender_petition line divorce" %>
+      </div>
+
+      <div data-toggle="tooltip" data-placement="top" title="Pridá vek ženy">
+        <%= text_field_tag :women_age, nil,placeholder: "Zadaj vek ženy", class: "women_age line divorce"%>
+      </div>
+
+      <div data-toggle="tooltip" data-placement="top" title="Pridá vek muža">
+        <%= text_field_tag :man_age, nil,placeholder: "Zadaj vek muža", class: "man_age line divorce"%>
+      </div>
+
+      <div data-toggle="tooltip" data-placement="top" title="Pridá rozhodnutie. Formát: ">
+        <%= text_field_tag :verdict, nil, placeholder: "Zadaj rozhodnutie", class: "verdict line divorce" %>
+      </div>
+
+      <div data-toggle="tooltip" data-placement="top" title="Pridá trvanie">
+        <%= text_field_tag :duration, nil,placeholder: "Zadaj dĺžku trvania", class: "duration line divorce"%>
+      </div>
+
+      <div data-toggle="tooltip" data-placement="top" title="Pridá vek nevesty">
+        <%= text_field_tag :bride_age, nil,placeholder: "Zadaj vek nevesty", class: "bride_age line marriage"%>
+      </div>
+
+      <div data-toggle="tooltip" data-placement="top" title="Pridá vek ženícha">
+        <%= text_field_tag :fiance_age, nil,placeholder: "Zadaj vek ženícha", class: "fiance_age line marriage"%>
+      </div>
+
+      <div data-toggle="tooltip" data-placement="top" title="Pridá poradie. Formát: ">
+        <%= text_field_tag :number, nil,placeholder: "Zadaj podarie", class: "number line marriage"%>
+      </div>
+
+      <div data-toggle="tooltip" data-placement="top" title="TIP: Je potrebné vyplniť všetky polia!">
+        <%= submit_tag 'Pridaj záznam o úmrtiach' , class: "btn-primary line death"%>
+        <%= submit_tag 'Pridaj záznam o narodeniach' , class: "btn-primary line birth"%>
+        <%= submit_tag 'Pridaj záznam o rozvodoch' , class: "btn-primary line divorce"%>
+        <%= submit_tag 'Pridaj záznam o migráciách' , class: "btn-primary line migration"%>
+        <%= submit_tag 'Pridaj záznam o sobášoch' , class: "btn-primary line marriage"%>
+      </div>
   <% end %>
 </div>
 <script>
@@ -81,5 +128,8 @@
     $(document).on("click","#migration",function(){
         $(".migration").css("display", "block");
         $(".btn").hide();
+    });
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip();
     });
 </script>
