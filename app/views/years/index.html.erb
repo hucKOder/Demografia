@@ -3,7 +3,9 @@
 	<%= form_tag(years_path, method: 'get') do %>
 	<%= text_field_tag :year, nil, placeholder: "Zadaj rok" %>
 	<%= text_field_tag :town, nil,placeholder: "Zadaj mesto"%>
-	<%= text_field_tag :gender, nil, placeholder: "Zadaj pohlavie" %>
+      <a data-toggle="tooltip" data-placement="top" title="Filtrovanie podľa pohlavia nie je účinné pre Sobáše a Rozvody">
+        <%= text_field_tag :gender, nil, placeholder: "Zadaj pohlavie" %>
+      </a>
       <%= select_tag(:demograf, options_for_select([['Úmrtnosť','umrtnost'],['Pôrodnosť','porodnost'],['Sobáše','sobase'],['Rozvody','rozvody'],['Migrácia','migracia']])) %>
 	<%= submit_tag 'Filter', class: "btn btn-primary" %>
 	<% end %>
@@ -51,7 +53,6 @@
 					<td class="text-center col-md-2"><%= death.count %></td>
 					<td class="text-center col-md-2"><%= death.gender %></td>
 					<td class="text-center col-md-2"><%= death.z%></td>
-
 				</tr>
 				<% end %>
 				<% end %>
@@ -187,4 +188,7 @@
     $("tr[data-link]").click(function() {
         window.location = $(this).data("link")
     })
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip();
+    });
 </script>

@@ -55,7 +55,8 @@
         <%= text_field_tag :imigrants, nil,placeholder: "Zadaj počet prisťahovalcov", class: "imigrants line migration"%>
       </div>
 
-      <div data-toggle="tooltip" data-placement="top" title="Pridá dôvod. Formát: ">
+      <div data-toggle="tooltip" data-placement="top" title="Pridá dôvod. Formát: Upravý dôvod. Formát: Zmena pracoviska, Sobas, Studium, Rozvod, Nasledovanie rodinneho prislusnika,
+      Bytove dovody, Ine dovody">
         <%= text_field_tag :reason, nil, placeholder: "Zadaj dôvod", class: "reason line migration" %>
       </div>
 
@@ -79,7 +80,7 @@
         <%= text_field_tag :man_age, nil,placeholder: "Zadaj vek muža", class: "man_age line divorce"%>
       </div>
 
-      <div data-toggle="tooltip" data-placement="top" title="Pridá rozhodnutie. Formát: ">
+      <div data-toggle="tooltip" data-placement="top" title="Pridá rozhodnutie. Formát: Manzelstvo rozvedene, Navrh zamietnuty, Navrh vzaty spat, Ine rozhodnutie">
         <%= text_field_tag :verdict, nil, placeholder: "Zadaj rozhodnutie", class: "verdict line divorce" %>
       </div>
 
@@ -95,7 +96,7 @@
         <%= text_field_tag :fiance_age, nil,placeholder: "Zadaj vek ženícha", class: "fiance_age line marriage"%>
       </div>
 
-      <div data-toggle="tooltip" data-placement="top" title="Pridá poradie. Formát: ">
+      <div data-toggle="tooltip" data-placement="top" title="Pridá poradie. Formát: Prvy v poradi, Vyssieho poradia">
         <%= text_field_tag :number, nil,placeholder: "Zadaj podarie", class: "number line marriage"%>
       </div>
 

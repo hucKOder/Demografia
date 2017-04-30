@@ -50,11 +50,11 @@ class EditsController < ApplicationController
     end
 
     #sql = "BEGIN; UPDATE #{params[:type]}
-     #      SET
-              #{get_set(params)}
-      #     WHERE
-       #       id = #{params[:id]};
-        #   COMMIT;"
+    #       SET
+    #         {get_set(params)}
+    #       WHERE
+    #         id = #{params[:id]};
+    #       COMMIT;"
 
     #ActiveRecord::Base.connection.execute(sql)
   end

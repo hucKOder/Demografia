@@ -31,12 +31,20 @@ class YearsController < ApplicationController
 				@deaths = Birth.find_by_sql(filter(sql_birth))
 				@type = :birth
           table = "births"
-			when "sobase"
-				@deaths = Mariage.find_by_sql(filter(sql_marriage))
+				when "sobase"
+					if valid(params[:gender])
+						@deaths = Mariage.find_by_sql(sql_marriage+" LIMIT 2000")
+					else
+						@deaths = Mariage.find_by_sql(filter(sql_marriage))
+					end
 				@type = :marriage
           table = "mariages"
-			when "rozvody"
-				@deaths = Divorce.find_by_sql(filter(sql_divorce))
+				when "rozvody"
+					if valid(params[:gender])
+						@deaths = Divorce.find_by_sql(sql_divorce+" LIMIT 2000")
+					else
+						@deaths = Divorce.find_by_sql(filter(sql_divorce))
+					end
 				@type = :divorce
           table = "divorces"
 			when "migracia"
