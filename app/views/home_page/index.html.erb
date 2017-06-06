@@ -1,3 +1,4 @@
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <div class='container'>
   <div class='row'>
     <div class='col-xs-6' align="center">
@@ -19,8 +20,57 @@
     <hr/>
   </div>
 </div>
-<div class="container">
-  <div class="row" align="center">
-      <%= link_to 'Chcem pridať nový záznam do Štatistík!', addforms_path, class: "btn btn-primary"%>
-  </div>
+
+<script type="text/javascript">
+    google.charts.load('current', {'packages':['corechart']});
+    google.charts.setOnLoadCallback(drawChart);
+
+    function drawChart() {
+        <%@arr = []%>
+        <% @arr = @divorces.map{ |i| [i.year, i.d]} %>
+        <% @arr.insert(0,["Rok", "Rozvody"])%>
+
+        var myJsArray = <%=raw @arr%>;
+        var data = google.visualization.arrayToDataTable(myJsArray);
+
+        var options = {
+            title: 'Priebeh podľa rokov',
+            legend: { position: 'bottom' }
+        };
+
+        var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+
+        chart.draw(data, options);
+    }
+</script>
+
+<script type="text/javascript">
+    google.charts.load('current', {'packages':['corechart']});
+    google.charts.setOnLoadCallback(drawChart);
+
+    function drawChart() {
+        <%@arr = []%>
+        <% @arr = @marriages.map{ |i| [i.year, i.m, i.f]} %>
+        <% @arr.insert(0,["Rok", "Sobáše v mieste bydliska ženícha", "Sobáše v mieste bydliska nevesty"])%>
+
+        var myJsArray = <%=raw @arr%>;
+        var data = google.visualization.arrayToDataTable(myJsArray);
+
+        var options = {
+            title: 'Percentuálny pomer',
+            legend: { position: 'bottom' }
+        };
+
+        var chart = new google.visualization.LineChart(document.getElementById('piechart'));
+
+        chart.draw(data, options);
+    }
+</script>
+
+<div class="container" align="center">
+  <div id="curve_chart" style="width: 900px; height: 500px; margin-bottom: 50px;"></div>
+</div>
+
+<div class="container" align="center">
+  <div id="piechart" style="width: 900px; height: 500px; margin-bottom: 50px;"></div>
 </div>
