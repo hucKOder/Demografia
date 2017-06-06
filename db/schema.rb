@@ -10,18 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170325133428) do
+ActiveRecord::Schema.define(version: 20170606135124) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "births", force: :cascade do |t|
+    t.integer  "boys"
+    t.integer  "girls"
+    t.integer  "in_marriage"
     t.integer  "year"
-    t.integer  "mother_age"
-    t.integer  "count"
-    t.string   "gender"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
     t.integer  "town_id"
     t.index ["town_id"], name: "index_births_on_town_id", using: :btree
   end
@@ -40,70 +40,28 @@ ActiveRecord::Schema.define(version: 20170325133428) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "deaths", force: :cascade do |t|
-    t.integer  "year"
-    t.integer  "age"
-    t.integer  "count"
-    t.string   "gender"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer  "town_id"
-    t.index ["town_id"], name: "index_deaths_on_town_id", using: :btree
-  end
-
   create_table "divorces", force: :cascade do |t|
-    t.integer  "year"
-    t.integer  "women_age"
-    t.integer  "man_age"
-    t.integer  "count"
-    t.integer  "duration"
-    t.string   "gender_file_a_petition"
-    t.text     "verdict"
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+    t.integer  "number"
+    t.integer  "male_petition"
+    t.integer  "female_petition"
+    t.integer  "divorces_number"
+    t.float    "male_average_age"
+    t.float    "female_average_age"
+    t.float    "average_duration"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
     t.integer  "town_id"
+    t.integer  "year"
     t.index ["town_id"], name: "index_divorces_on_town_id", using: :btree
-  end
-
-  create_table "mariages", force: :cascade do |t|
-    t.integer  "year"
-    t.integer  "bride_age"
-    t.integer  "fiance_age"
-    t.integer  "count"
-    t.text     "mariage_count"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
-    t.integer  "town_id"
-    t.index ["town_id"], name: "index_mariages_on_town_id", using: :btree
-  end
-
-  create_table "migrations", force: :cascade do |t|
-    t.integer  "year"
-    t.integer  "age"
-    t.integer  "emigrants"
-    t.integer  "imigrants"
-    t.text     "reason"
-    t.string   "gender"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer  "town_id"
-    t.index ["town_id"], name: "index_migrations_on_town_id", using: :btree
   end
 
   create_table "towns", force: :cascade do |t|
     t.string   "name"
-    t.integer  "citizens"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "canton_id"
-    t.index ["canton_id"], name: "index_towns_on_canton_id", using: :btree
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   add_foreign_key "births", "towns"
   add_foreign_key "cantons", "counties"
-  add_foreign_key "deaths", "towns"
   add_foreign_key "divorces", "towns"
-  add_foreign_key "mariages", "towns"
-  add_foreign_key "migrations", "towns"
-  add_foreign_key "towns", "cantons"
 end

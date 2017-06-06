@@ -5,47 +5,34 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
-County.destroy_all
+require 'csv'
 
-50.times {
- name = Faker::Address.unique.state
- County.create(name: name)
-}
-
-counties = County.order(:created_at)
-
-$i = 0
-while ($i < 220) do  
-	name = Faker::Address.unique.country
-	$x = rand(1..49)
-	counties[$x].cantons.create(name: name)
-
-	x = counties[$x].cantons.first
-	100.times {
-		name = Faker::Address.unique.city
-		x.towns.create(name: name, citizens: rand(10000..800000))
-	}
-	$i +=1
+CSV.foreach('/home/yourtruefrend/Desktop/DB-obce/kraje.csv') do |row|
+	County.create(name: row[0])
 end
 
-
-
-$i = 0
-while ($i < 1000) do
-cities = Town.order(:created_at)
-okres = Canton.order(:created_at)  
-	name = okres[$i].name + "#{$i}"
-	$x = rand(1..49)
-	counties[$x].cantons.create(name: name)
-
-	x = counties[$x].cantons.first
-	100.times {
-		$p = 0
-		name = cities[$i].name + "#{$p}"
-		x.towns.create(name: name, citizens: rand(10000..800000))
-		$p += 1
-	}
-	$i +=1
+CSV.foreach('/home/yourtruefrend/Desktop/DB-obce/okresy.csv') do |row|
+  county = row[1]
+  county_id = 0
+  County.all.each do |count|
+    if count.name == county then
+      county_id = count.id
+      break
+    end
+  end
+  Canton.create({name: row[0], county_id: county_id})
 end
 
+CSV.foreach('/home/yourtruefrend/Desktop/DB-obce/mesta.csv') do |row|
+  canton_id = 0
+  canton = row[1]
 
+  Canton.all.each do |cant|
+    if cant.name == canton then
+      canton_id = cant.id
+      break
+    end
+  end
+
+  Town.create({name: row[0], citizens: row[2], canton_id: canton_id})
+end
