@@ -32,7 +32,7 @@ class EditsController < ApplicationController
       when "births"
         record = Birth.find(params[:id])
       when "mariages"
-        record = Mariage.find(params[:id])
+        record = Marriage.find(params[:id])
       when "divorces"
         record = Divorce.find(params[:id])
       when "migrations"
@@ -66,7 +66,7 @@ class EditsController < ApplicationController
       when "births"
         record = Birth.find(params[:id])
       when "mariages"
-        record = Mariage.find(params[:id])
+        record = Marriage.find(params[:id])
       when "divorces"
         record = Divorce.find(params[:id])
       when "migrations"

@@ -33,9 +33,9 @@ class YearsController < ApplicationController
           table = "births"
 				when "sobase"
 					if valid(params[:gender])
-						@deaths = Mariage.find_by_sql(sql_marriage+" LIMIT 2000")
+						@deaths = Marriage.find_by_sql(sql_marriage+" LIMIT 2000")
 					else
-						@deaths = Mariage.find_by_sql(filter(sql_marriage))
+						@deaths = Marriage.find_by_sql(filter(sql_marriage))
 					end
 				@type = :marriage
           table = "mariages"
@@ -70,7 +70,7 @@ class YearsController < ApplicationController
       when :divorce
         @years = Divorce.find_by_sql(info)
       when :marriage
-        @years = Mariage.find_by_sql(info)
+        @years = Marriage.find_by_sql(info)
       when :migration
        info = "SELECT sum(emigrants) x, sum(imigrants) i, year y FROM migrations
         GROUP BY year

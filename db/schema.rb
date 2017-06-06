@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170606135124) do
+ActiveRecord::Schema.define(version: 20170606151212) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -40,6 +40,16 @@ ActiveRecord::Schema.define(version: 20170606135124) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "deaths", force: :cascade do |t|
+    t.integer  "male"
+    t.integer  "female"
+    t.integer  "year"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer  "town_id"
+    t.index ["town_id"], name: "index_deaths_on_town_id", using: :btree
+  end
+
   create_table "divorces", force: :cascade do |t|
     t.integer  "number"
     t.integer  "male_petition"
@@ -55,6 +65,36 @@ ActiveRecord::Schema.define(version: 20170606135124) do
     t.index ["town_id"], name: "index_divorces_on_town_id", using: :btree
   end
 
+  create_table "marriages", force: :cascade do |t|
+    t.integer  "male_home_number"
+    t.integer  "male_home_first_number"
+    t.float    "male_home_avg_age"
+    t.integer  "female_home_number"
+    t.integer  "female_home_first_number"
+    t.float    "female_home_avg_age"
+    t.integer  "year"
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+    t.integer  "town_id"
+    t.index ["town_id"], name: "index_marriages_on_town_id", using: :btree
+  end
+
+  create_table "migrations", force: :cascade do |t|
+    t.integer  "male_imigrants"
+    t.integer  "female_imigrants"
+    t.integer  "sr_imigrants"
+    t.integer  "foreign_imigrants"
+    t.integer  "male_emigrants"
+    t.integer  "female_emigrants"
+    t.integer  "sr_emigrants"
+    t.integer  "year"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+    t.integer  "town_id"
+    t.integer  "foreign_emigrants"
+    t.index ["town_id"], name: "index_migrations_on_town_id", using: :btree
+  end
+
   create_table "towns", force: :cascade do |t|
     t.string   "name"
     t.datetime "created_at", null: false
@@ -63,5 +103,8 @@ ActiveRecord::Schema.define(version: 20170606135124) do
 
   add_foreign_key "births", "towns"
   add_foreign_key "cantons", "counties"
+  add_foreign_key "deaths", "towns"
   add_foreign_key "divorces", "towns"
+  add_foreign_key "marriages", "towns"
+  add_foreign_key "migrations", "towns"
 end

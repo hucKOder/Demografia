@@ -24,7 +24,7 @@ class MigrationsController < ApplicationController
 			when "births"
 				record = Birth.find_by_sql(info)
 			when "mariages"
-				record = Mariage.find_by_sql(info)
+				record = Marriage.find_by_sql(info)
 			when "divorces"
 				record = Divorce.find_by_sql(info)
 			when "migrations"

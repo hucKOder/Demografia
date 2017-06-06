@@ -38,7 +38,7 @@ class AddformsController < ApplicationController
       #VALUES(#{params[:year]}, #{params[:age]}, #{params[:emigrants]}, #{params[:imigrants]}, '#{params[:gender]}', '#{params[:reason]}', #{town_id}, '#{time}', '#{time}'); COMMIT;"
 
     elsif params[:commit] == "Pridaj záznam o sobášoch" && params[:town].present?
-      x = Mariage.new(year: params[:year], bride_age: params[:bride_age], fiance_age: params[:fiance_age], count: params[:count], mariage_count: "#{params[:number]}", town_id: town.first.id)
+      x = Marriage.new(year: params[:year], bride_age: params[:bride_age], fiance_age: params[:fiance_age], count: params[:count], mariage_count: "#{params[:number]}", town_id: town.first.id)
       make_record(x)
 
       #transaction = "BEGIN; INSERT INTO mariages (year, bride_age, fiance_age, count, mariage_count, town_id, updated_at, created_at)
