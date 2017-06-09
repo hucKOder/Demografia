@@ -1,6 +1,9 @@
 require 'csv'
 
-CSV.foreach('/home/yourtruefrend/Desktop/DB-obce/2015/sobase.csv') do |row|
+place = '2010'
+
+6.times do
+CSV.foreach('/home/yourtruefrend/Desktop/DB-obce/sobase/sobase_'+place+'.csv') do |row|
   town = row[0]
   town_id = 0
 
@@ -18,4 +21,6 @@ CSV.foreach('/home/yourtruefrend/Desktop/DB-obce/2015/sobase.csv') do |row|
                    female_home_avg_age: row[6],
                    year:  row[7],
                    town_id: town_id})
+end
+  place = (place.to_i + 1).to_s
 end
