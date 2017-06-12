@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  get 'births/index'
+
   get 'deaths/index'
 
   get 'marriages/index'

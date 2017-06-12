@@ -1,0 +1,49 @@
+<div align="center">
+  <h3>Informácie o narodeniach v meste <%=@town%> od roku 2010</h3>
+</div>
+
+<script type="text/javascript">
+    google.charts.load('current', {'packages':['corechart']});
+    google.charts.setOnLoadCallback(drawChartSum);
+
+    function drawChartSum() {
+
+        var myJsArray = <%=raw @arr%>;
+        var data = google.visualization.arrayToDataTable(myJsArray);
+
+        var options = {
+            title: 'Počet narodených v priebehu rokov',
+            curveType: 'function',
+            legend: { position: 'bottom' }
+        };
+
+        var chart = new google.visualization.LineChart(document.getElementById('sum'));
+
+        chart.draw(data, options);
+    }
+    google.charts.setOnLoadCallback(drawChartDeath);
+
+    function drawChartDeath() {
+
+
+        var myJsArray = <%=raw @in_marriage%>;
+        var data = google.visualization.arrayToDataTable(myJsArray);
+
+        var options = {
+            title: 'Počet narodených v manželstve a počet narodených',
+            curveType: 'function',
+            legend: { position: 'bottom' }
+        };
+
+        var chart = new google.visualization.LineChart(document.getElementById('number'));
+
+        chart.draw(data, options);
+    }
+</script>
+
+<div class="container" align="center">
+  <div class="row">
+    <div class="col-sm-6" id="number" style="width: 800px; height: 600px; margin-bottom: 30px;"></div>
+    <div class="col-sm-6" id="sum" style="width: 800px; height: 600px; margin-bottom: 30px;"></div>
+  </div>
+</div>

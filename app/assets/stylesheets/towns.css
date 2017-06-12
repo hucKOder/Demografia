@@ -1,0 +1,27 @@
+#pagination_table {
+    overflow-y: hidden;
+    overflow-x: hidden;
+    white-space: nowrap;
+    vertical-align: text-top;
+    margin: 0;
+    padding: 0;
+    clear: both;
+    border-spacing: 5px;
+}
+#pagination_table:hover{
+    overflow: auto;
+}
+.i {
+    display: table-cell;
+    min-width: 240px;
+    width: 240px;
+    font-size: 140px;
+    border: 2px solid #d1d1d1;
+    border-radius: 5px;
+    padding: 5px;
+    margin: 5px;
+    white-space: normal;
+    line-height: 1.6;
+    vertical-align: top;
+    text-align: center;
+}

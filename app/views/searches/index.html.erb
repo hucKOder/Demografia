@@ -4,11 +4,11 @@
 
 <h4 class="element" align="center" style="padding-top: 20px;">Kategórie</h4>
 <div align="center" id='buttons'>
-  <%= link_to 'Narodenia', divorces_path(:divorces => @town.id), class: "btn btn-primary"%>
-  <%= link_to 'Úmrtia', deaths_index_path(:deaths => @town.id), class: "btn btn-primary"%>
-  <%= link_to 'Sobáše', marriages_index_path(:marriages => @town.id), class: "btn btn-primary"%>
-  <%= link_to 'Rozvody', divorces_path(:divorces => @town.id), class: "btn btn-primary"%>
-  <%= link_to 'Migrácia', divorces_path(:divorces => @town.id), class: "btn btn-primary"%>
+  <%= link_to 'Narodenia', births_index_path(:births => @town.id, :town => @town.name), class: "grow btn btn-primary"%>
+  <%= link_to 'Úmrtia', deaths_index_path(:deaths => @town.id, :town => @town.name), class: "grow btn btn-primary"%>
+  <%= link_to 'Sobáše', marriages_index_path(:marriages => @town.id , :town => @town.name), class: "grow btn btn-primary"%>
+  <%= link_to 'Rozvody', divorces_path(:divorces => @town.id, :town => @town.name), class: "grow btn btn-primary"%>
+  <%= link_to 'Migrácia', migrations_path(:migrations => @town.id, :town => @town.name), class: "grow btn btn-primary"%>
 </div>
 
 <div class="container">
@@ -26,3 +26,24 @@
   </div>
 </div>
 
+<
+<script type="text/javascript" charset="utf-8">
+    google.charts.load('current', {'packages':['corechart']});
+    google.charts.setOnLoadCallback(drawChartMale);
+
+    function drawChartMale() {
+        var myJsArray = <%=raw @bd_diff%>;
+        var data = google.visualization.arrayToDataTable(myJsArray);
+        var options = {
+            title: 'Rast obyvateľstva mesta',
+            curveType: 'function',
+            legend: { position: 'bottom' }
+        };
+        var chart = new google.visualization.LineChart(document.getElementById('grow'));
+        chart.draw(data, options);
+    }
+</script>
+
+<div class="container" align="center">
+  <div id="grow" style="width: 600px; height: 400px; margin-bottom: 50px;"></div>
+</div>
