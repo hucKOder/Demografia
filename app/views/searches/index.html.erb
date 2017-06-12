@@ -1,42 +1,28 @@
-
 <div class='container' align="center">
-	<h2>Vyber si, z krajov:</h2>
-  <hr/>
+  <h3 class="element">Informácie o meste <%=@town.name%></h3>
 </div>
-<div class='container'>
-  <h3>Generované kraje:</h3>
-	<% @counties.each_slice(6) do |counties| %>
-  <div class="row">
 
-    <% counties.each do |county|%>
-        <%if county.name == "Bratislavský"%>
-            <% @last = counties%>
-            <%break%>
-        <%end%>
-        <%if !@last.nil?%>
-            <% @county = counties%>
-            <%break%>
-        <%end%>
-        <div class='col-xs-2' align="center">
-          <h4><%= link_to county.name, cantons_path(:county_id => county.id) %></h4>
+<h4 class="element" align="center" style="padding-top: 20px;">Kategórie</h4>
+<div align="center" id='buttons'>
+  <%= link_to 'Narodenia', divorces_path(:divorces => @town.id), class: "btn btn-primary"%>
+  <%= link_to 'Úmrtia', deaths_index_path(:deaths => @town.id), class: "btn btn-primary"%>
+  <%= link_to 'Sobáše', marriages_index_path(:marriages => @town.id), class: "btn btn-primary"%>
+  <%= link_to 'Rozvody', divorces_path(:divorces => @town.id), class: "btn btn-primary"%>
+  <%= link_to 'Migrácia', divorces_path(:divorces => @town.id), class: "btn btn-primary"%>
+</div>
+
+<div class="container">
+  <div class="col-sm-6">
+    <%@dic.each do |k,v|%>
+        <div class="row" align="">
+         <div class="element col-sm-6"><%= k %>:</div>
+         <div class="col-sm-6"><%= v %></div>
         </div>
-    <% end %>
+    <%end%>
   </div>
-  <% end %>
-  <h3>Slovenské kraje:</h3>
-  <div class="row">
-    <% @last.each do |county|%>
-        <%if county.name == "Michigan" || county.name == "Connecticut"%>
-            <%next%>
-        <%end%>
-    <div class='col-xs-2' align="center">
-      <h4><%= link_to county.name, cantons_path(:county_id => county.id) %></h4>
-    </div>
-    <%end%>
-    <% @county.each do |county|%>
-        <div class='col-xs-2' align="center">
-          <h4><%= link_to county.name, cantons_path(:county_id => county.id) %></h4>
-        </div>
-    <%end%>
+  <div class="col-sm-6" align="center">
+    <%= image_tag 'https:'+@picture, class: "buttons helper" %>
+    <p class="element" id="buttons">Obrázok mesta <%=@town.name%></p>
   </div>
 </div>
+

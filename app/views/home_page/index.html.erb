@@ -5,7 +5,7 @@
       <h3>Vyber si obdobie, ktoré ťa zaujíma</h3>
     </div>
     <div class='col-xs-6' align="center">
-      <h3>Hľadaj konkrétne podľa krajov Slovenska</h3>  
+      <h3>Hľadaj konkrétne podľa miest Slovenska</h3>
     </div> 
   </div>
   <div class='row'>
@@ -15,11 +15,40 @@
       <%end%>
     </div>
     <div class='col-xs-6' align="center">
-      <%= link_to 'Pokračuj tu', searches_path, class: "btn btn-primary"%>
+      <button class="btn btn-primary" data-toggle="modal" data-target="#approvalModal">
+        Pokračuj tu
+      </button>
     </div>
+
     <hr/>
   </div>
 </div>
+
+<div class="modal fade" id="approvalModal" tabindex="-1" role="dialog" aria-labelledby="approvalModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">
+          <span aria-hidden="true">&times;</span>
+          <span class="sr-only">Close</span>
+        </button>
+        <h4 class="modal-title">Vyhľadávanie</h4>
+      </div>
+      <div class="modal-body">
+        <%= form_tag(searches_path, method: 'get') do %>
+            <%= label_tag 'town', 'Zadaj mesto, ktorého informácie chceš vidieť:', :class => 'control-label' %>
+            <%= text_field_tag :reason, params[:reason] %>
+            </div>
+            <div class="modal-footer">
+              <a type="button" class="btn btn-danger" data-dismiss="modal">Zrušiť</a>
+              <%= submit_tag "Vyhľadať", name: nil, class: "btn btn-primary" %>
+            </div>
+        <% end %>
+    </div>
+        </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div>
+
 
 <script type="text/javascript">
     google.charts.load('current', {'packages':['corechart']});
@@ -28,13 +57,14 @@
     function drawChart() {
         <%@arr = []%>
         <% @arr = @divorces.map{ |i| [i.year, i.d]} %>
+        <% @arr = @arr.sort {|a,b| a[0] <=> b[0]}%>
         <% @arr.insert(0,["Rok", "Rozvody"])%>
 
         var myJsArray = <%=raw @arr%>;
         var data = google.visualization.arrayToDataTable(myJsArray);
 
         var options = {
-            title: 'Priebeh podľa rokov',
+            title: 'Počet rozvodov v Slovenských mestách',
             legend: { position: 'bottom' }
         };
 
@@ -44,6 +74,10 @@
     }
 </script>
 
+<div class="container" align="center">
+  <div id="curve_chart" style="width: 900px; height: 500px; margin-bottom: 50px;"></div>
+</div>
+
 <script type="text/javascript">
     google.charts.load('current', {'packages':['corechart']});
     google.charts.setOnLoadCallback(drawChart);
@@ -51,13 +85,14 @@
     function drawChart() {
         <%@arr = []%>
         <% @arr = @marriages.map{ |i| [i.year, i.m, i.f]} %>
+        <% @arr = @arr.sort {|a,b| a[0] <=> b[0]}%>
         <% @arr.insert(0,["Rok", "Sobáše v mieste bydliska ženícha", "Sobáše v mieste bydliska nevesty"])%>
 
         var myJsArray = <%=raw @arr%>;
         var data = google.visualization.arrayToDataTable(myJsArray);
 
         var options = {
-            title: 'Percentuálny pomer',
+            title: '',
             legend: { position: 'bottom' }
         };
 
@@ -65,12 +100,37 @@
 
         chart.draw(data, options);
     }
+
+    google.charts.load('current', {'packages':['corechart']});
+    google.charts.setOnLoadCallback(drawChartBirth);
+
+    function drawChartBirth() {
+        <%@arr = []%>
+        <% @arr = @births.map{ |i| [i.year,i.g ,i.b ,i.s]} %>
+        <% @arr = @arr.sort {|a,b| a[0] <=> b[0]}%>
+        <% @arr.insert(0,["Rok", "Dievčatá" ,"Chlapci", "Spolu"])%>
+
+        var myJsArray = <%=raw @arr%>;
+        var data = google.visualization.arrayToDataTable(myJsArray);
+
+        var options = {
+            title: 'Počet narodených ľudí na Slovensku',
+            curveType: 'function',
+            legend: { position: 'bottom' }
+        };
+
+        var chart = new google.visualization.LineChart(document.getElementById('births'));
+
+        chart.draw(data, options);
+    }
+
 </script>
 
-<div class="container" align="center">
-  <div id="curve_chart" style="width: 900px; height: 500px; margin-bottom: 50px;"></div>
-</div>
 
 <div class="container" align="center">
   <div id="piechart" style="width: 900px; height: 500px; margin-bottom: 50px;"></div>
+</div>
+
+<div class="container" align="center">
+  <div id="births" style="width: 900px; height: 500px; margin-bottom: 50px;"></div>
 </div>

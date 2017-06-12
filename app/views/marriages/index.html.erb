@@ -1,0 +1,75 @@
+<div align="center">
+  <h3>Informácie o sobášoch v meste <%=@town.name%> od roku 2010</h3>
+</div>
+
+<script type="text/javascript">
+    google.charts.load('current', {'packages':['corechart']});
+    google.charts.setOnLoadCallback(drawChart);
+
+    function drawChart() {
+        <%@arr = []%>
+        <% @arr = @marriages.map{ |i| [i.year, i.male_home_number, i.female_home_number]} %>
+        <% @arr = @arr.sort {|a,b| a[0] <=> b[0]}%>
+        <% @arr.insert(0,["Rok", "Počet sobášov - Trvalý pobyt ženícha", "Počet sobášov - Trvalý pobyt nevesty"])%>
+
+        var myJsArray = <%=raw @arr%>;
+        var data = google.visualization.arrayToDataTable(myJsArray);
+
+        var options = {
+            title: 'Počet so sobášov vzhľadom na trvalý pobyt ženícha a nevesty',
+            legend: { position: 'bottom' }
+        };
+
+        var chart = new google.visualization.LineChart(document.getElementById('number'));
+
+        chart.draw(data, options);
+    }
+
+    google.charts.setOnLoadCallback(drawChart2);
+    function drawChart2() {
+        <%@arr = []%>
+        <% @arr = @marriages.map{ |i| [i.year ,i.male_home_first_number, i.female_home_first_number]} %>
+        <% @arr = @arr.sort {|a,b| a[0] <=> b[0]}%>
+        <% @arr.insert(0,["Rok", "Počet sobášov - Trvalý pobyt ženícha", "Počet sobášov - Trvalý pobyt nevesty"])%>
+
+        var myJsArray = <%=raw @arr%>;
+        var data = google.visualization.arrayToDataTable(myJsArray);
+
+        var options = {
+            title: 'Počet sobášov prvého poradia vzhľadom na tvalý pobyt nevesty a ženícha',
+            legend: { position: 'bottom' }
+        };
+
+        var chart = new google.visualization.LineChart(document.getElementById('petition'));
+
+        chart.draw(data, options);
+    }
+
+    google.charts.setOnLoadCallback(drawChart3);
+    function drawChart3() {
+        <%@arr = []%>
+        <% @arr = @marriages.map{ |i| [i.year ,i.male_home_avg_age, i.female_home_avg_age]} %>
+        <% @arr = @arr.sort {|a,b| a[0] <=> b[0]} %>
+        <% @arr.insert(0,["Rok", "Priemerný vek - Trvalý pobyt ženícha", "Priemerny vek - trvalý pobyt nevesty"])%>
+
+        var myJsArray = <%=raw @arr%>;
+        var data = google.visualization.arrayToDataTable(myJsArray);
+
+        var options = {
+            title: 'Priemerný vek uzatvárania prvého manželstva vzhľadom na trvalý pobyt ženicha a nevesty',
+            legend: { position: 'bottom' }
+        };
+
+        var chart = new google.visualization.LineChart(document.getElementById('age'));
+
+        chart.draw(data, options);
+    }
+</script>
+
+
+
+<div class="container" align="center">
+  <div id="number" style="width: 600px; height: 400px; margin-bottom: 50px;"></div>
+  <div id="petition" style="width: 600px; height: 400px; margin-bottom: 50px;"></div>
+  <div id="age" style="width: 600px; height: 400px; margin-bottom: 50px;"></div>
+</div>

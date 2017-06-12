@@ -1,0 +1,74 @@
+<div align="center">
+  <h3>Informácie o rozvodoch v meste <%=@town%> od roku 2010</h3>
+</div>
+<script type="text/javascript">
+    google.charts.load('current', {'packages':['corechart']});
+    google.charts.setOnLoadCallback(drawChart);
+
+    function drawChart() {
+        <%@arr = []%>
+        <% @arr = @divorces.map{ |i| [i.year, i.number]} %>
+        <% @arr = @arr.sort {|a,b| a[0] <=> b[0]}%>
+        <% @arr.insert(0,["Rok", "Rozvody"])%>
+
+        var myJsArray = <%=raw @arr%>;
+        var data = google.visualization.arrayToDataTable(myJsArray);
+
+        var options = {
+            title: 'Počet rozvodov v meste <%=@town%>',
+            legend: { position: 'bottom' }
+        };
+
+        var chart = new google.visualization.LineChart(document.getElementById('number'));
+
+        chart.draw(data, options);
+    }
+
+    google.charts.setOnLoadCallback(drawChart2);
+    function drawChart2() {
+        <%@arr = []%>
+        <% @arr = @divorces.map{ |i| [i.year ,i.male_petition, i.female_petition]} %>
+        <% @arr = @arr.sort {|a,b| a[0] <=> b[0]}%>
+        <% @arr.insert(0,["Rok", "Muž podal návrh", "Žena podala návrh"])%>
+
+        var myJsArray = <%=raw @arr%>;
+        var data = google.visualization.arrayToDataTable(myJsArray);
+
+        var options = {
+            title: 'Podané návrhy na rozvod v meste <%=@town%>',
+            legend: { position: 'bottom' }
+        };
+
+        var chart = new google.visualization.LineChart(document.getElementById('petition'));
+
+        chart.draw(data, options);
+    }
+
+    google.charts.setOnLoadCallback(drawChart3);
+    function drawChart3() {
+        <%@arr = []%>
+        <% @arr = @divorces.map{ |i| [i.year ,i.male_average_age, i.female_average_age]} %>
+        <% @arr = @arr.sort {|a,b| a[0] <=> b[0]}%>
+        <% @arr.insert(0,["Rok", "Priemerny vek muža", "Priemerny vek ženy"])%>
+
+        var myJsArray = <%=raw @arr%>;
+        var data = google.visualization.arrayToDataTable(myJsArray);
+
+        var options = {
+            title: 'Priemerný vek rozvedeného muža a ženy v meste <%=@town%>',
+            legend: { position: 'bottom' }
+        };
+
+        var chart = new google.visualization.LineChart(document.getElementById('age'));
+
+        chart.draw(data, options);
+    }
+</script>
+
+
+
+<div class="container" align="center">
+  <div id="number" style="width: 600px; height: 400px; margin-bottom: 50px;"></div>
+  <div id="petition" style="width: 600px; height: 400px; margin-bottom: 50px;"></div>
+  <div id="age" style="width: 600px; height: 400px; margin-bottom: 50px;"></div>
+</div>
