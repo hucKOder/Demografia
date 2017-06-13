@@ -13,6 +13,10 @@
 
 <div class="container">
   <div class="col-sm-6">
+    <div class="row" align="center">
+      <%= image_tag 'https:'+@picture, class: "buttons helper" %>
+      <p class="element" id="buttons">Mesto <%=@town.name%></p>
+    </div>
     <%@dic.each do |k,v|%>
         <div class="row" align="">
          <div class="element col-sm-6"><%= k %>:</div>
@@ -21,8 +25,8 @@
     <%end%>
   </div>
   <div class="col-sm-6" align="center">
-    <%= image_tag 'https:'+@picture, class: "buttons helper" %>
-    <p class="element" id="buttons">Obrázok mesta <%=@town.name%></p>
+
+    <div id="grow" style="width: 600px; height: 400px; margin-bottom: 50px;"></div>
   </div>
 </div>
 
@@ -35,7 +39,7 @@
         var myJsArray = <%=raw @bd_diff%>;
         var data = google.visualization.arrayToDataTable(myJsArray);
         var options = {
-            title: 'Rast obyvateľstva mesta',
+            title: 'Rozdiel medzi počtu obyvateľov mesta vzhľadom na narodenia, úmrtia a migráciu',
             curveType: 'function',
             legend: { position: 'bottom' }
         };
@@ -44,6 +48,4 @@
     }
 </script>
 
-<div class="container" align="center">
-  <div id="grow" style="width: 600px; height: 400px; margin-bottom: 50px;"></div>
-</div>
+
