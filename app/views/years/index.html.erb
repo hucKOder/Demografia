@@ -1,0 +1,29 @@
+<div class="container">
+  <table class="table table-sm">
+  <thead>
+  <tr>
+    <th>Poradie</th>
+    <th>Mesto</th>
+    <th>Rast v %</th>
+    <th>Počet obyvateľov</th>
+  </tr>
+  </thead>
+  <tbody>
+<% @rank.each do|k,v|%>
+    <tr data-link="<%= searches_path(:reason => v.second) %>">
+      <th scope="row"><%=v.first%>.</th>
+      <td><%= v.second %></td>
+      <td><%= v.third %></td>
+      <td><%= v.fourth %></td>
+    </tr>
+<%end%>
+  </tbody>
+</table>
+</div>
+
+
+<script type="text/javascript" charset="utf-8">
+    $("tr[data-link]").click(function() {
+        window.location = this.dataset.link
+    })
+</script>

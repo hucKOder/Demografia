@@ -12,7 +12,7 @@
 </div>
 
 <div class="container">
-  <div class="col-sm-6">
+  <div class="col-sm-6 vcenter">
     <div class="row" align="center">
       <%= image_tag 'https:'+@picture, class: "buttons helper" %>
       <p class="element" id="buttons">Mesto <%=@town.name%></p>
@@ -24,8 +24,12 @@
         </div>
     <%end%>
   </div>
-  <div class="col-sm-6" align="center">
-
+  <div class="col-sm-6 vcenter" align="center">
+    <div>
+      <h3 style="color: #dc3912; background-color: white;">Mesto <%=@town.name%> je spomedzi všetkých miest na <br/>
+        <a style="color: blue"><%= @rank[@id].first %>. mieste</a> vzhľadom na
+        rast obyvateľstva za posledný rok!</h3>
+    </div>
     <div id="grow" style="width: 600px; height: 400px; margin-bottom: 50px;"></div>
   </div>
 </div>
