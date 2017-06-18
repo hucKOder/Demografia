@@ -5,6 +5,7 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
+gem 'google-analytics-rails', '1.1.0'
 gem 'alphabetical_paginate'
 gem 'jquery-ui-rails'
 gem 'nokogiri'
