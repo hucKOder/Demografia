@@ -1,5 +1,13 @@
 <div class="container">
-  <table class="table table-sm">
+  <div class="row">
+<div class="btn btn-primary r col-lg-4 col-md-4 col-sm-6 col-xs-6 grow">Rast obyvateľstva</div>
+<div class="btn btn-primary b col-lg-4 col-md-4 col-sm-6 col-xs-6 grow">Pôrodnosť</div>
+<div class="btn btn-primary d col-lg-4 col-md-4 col-sm-6 col-xs-6 grow">Úmrtnosť</div>
+  </div>
+</div>
+
+<div class="container rank">
+  <table class="table table-sm table-fixed">
   <thead>
   <tr>
     <th>Poradie</th>
@@ -11,9 +19,9 @@
   <tbody>
 <% @rank.each do|k,v|%>
     <tr data-link="<%= searches_path(:reason => v.second) %>">
-      <th scope="row"><%=v.first%>.</th>
+      <td scope="row"><%=v.first%>.</td>
       <td><%= v.second %></td>
-      <td><%= v.third %></td>
+      <td><%= v.third.round(3) %></td>
       <td><%= v.fourth %></td>
     </tr>
 <%end%>
@@ -21,9 +29,107 @@
 </table>
 </div>
 
+<div class="container births">
+  <table class="table table-sm">
+    <thead>
+    <tr>
+      <th>Poradie</th>
+      <th>Mesto</th>
+      <th>Pôrodnosť v %</th>
+      <th>Počet obyvateľov</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @births.each do|k|%>
+        <tr data-link="<%= searches_path(:reason => k.name) %>">
+          <td scope="row"><%=k.rank%>.</td>
+          <td><%= k.name %></td>
+          <td><%= k.sum.round(3) %></td>
+          <td><%= k.citizens %></td>
+        </tr>
+    <%end%>
+    </tbody>
+  </table>
+</div>
+
+<div class="container deaths">
+  <table class="table table-sm">
+    <thead>
+    <tr>
+      <th>Poradie</th>
+      <th>Mesto</th>
+      <th>Úmrtnosť v %</th>
+      <th>Počet obyvateľov</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @deaths.each do|k|%>
+        <tr data-link="<%= searches_path(:reason => k.name) %>">
+          <td scope="row"><%=k.rank%>.</td>
+          <td><%= k.name %></td>
+          <td><%= k.sum.round(3) %></td>
+          <td><%= k.citizens %></td>
+        </tr>
+    <%end%>
+    </tbody>
+  </table>
+</div>
 
 <script type="text/javascript" charset="utf-8">
+    $(document).ready(function () {
+        $(".rank").hide();
+        $(".births").hide();
+        $(".deaths").hide();
+
+        $(".r").click(function() {
+            // assumes element with id='button'
+            $(".births").hide();
+            $(".deaths").hide();
+
+            if($(".rank").is(':visible'))
+            {
+                $(".rank").animate({ width: 'hide' });
+            }
+            else
+            {
+                $(".rank").animate({ width: 'show' });
+            }
+        });
+
+        $(".b").click(function() {
+            $(".rank").hide();
+            $(".deaths").hide();
+
+            if($(".births").is(':visible'))
+            {
+                $(".births").animate({ width: 'hide' });
+            }
+            else
+            {
+                $(".births").animate({ width: 'show' });
+            }
+        });
+        $(".d").click(function() {
+            $(".rank").hide();
+            $(".births").hide();
+
+            if($(".deaths").is(':visible'))
+            {
+                $(".deaths").animate({ width: 'hide' });
+            }
+            else
+            {
+                $(".deaths").animate({ width: 'show' });
+            }
+        });
+    });
+
+    $(".r").click(function(){
+
+    });
     $("tr[data-link]").click(function() {
         window.location = this.dataset.link
     })
+
+
 </script>
