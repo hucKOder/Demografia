@@ -72,6 +72,12 @@ order by year")
 			group by d.sum, m.sum, births.town_id, t.citizens, t.name")
 
 		@rank = @rank.map { |i| [i.town_id,[i.rank, i.name, i.sum, i.citizens]] }.to_h
+
+		id = @town.info["Súradnice"].split('/').last.gsub(/ /,"").split(';')
+		@hash = Gmaps4rails.build_markers(id) do |i, marker|
+			marker.lat id.first
+			marker.lng id.second
+		end
 	end
 
 end

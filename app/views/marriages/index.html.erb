@@ -1,5 +1,5 @@
 <div align="center">
-  <h3>Informácie o sobášoch v meste <%=@town%> od roku 2010</h3>
+  <h3>Informácie o sobášoch v meste <%=@town%> od roku 2005</h3>
 </div>
 
 <script type="text/javascript">
@@ -17,6 +17,7 @@
 
         var options = {
             title: 'Počet so sobášov vzhľadom na trvalý pobyt ženícha a nevesty',
+            curveType: 'function',
             legend: { position: 'bottom' }
         };
 
@@ -37,6 +38,7 @@
 
         var options = {
             title: 'Počet sobášov prvého poradia vzhľadom na tvalý pobyt nevesty a ženícha',
+            curveType: 'function',
             legend: { position: 'bottom' }
         };
 
@@ -57,6 +59,7 @@
 
         var options = {
             title: 'Priemerný vek uzatvárania prvého manželstva vzhľadom na trvalý pobyt ženicha a nevesty',
+            curveType: 'function',
             legend: { position: 'bottom' }
         };
 
@@ -69,7 +72,7 @@
 
 
 <div class="container" align="center">
-  <div id="number" style="width: 600px; height: 400px; margin-bottom: 50px;"></div>
-  <div id="petition" style="width: 600px; height: 400px; margin-bottom: 50px;"></div>
-  <div id="age" style="width: 600px; height: 400px; margin-bottom: 50px;"></div>
+  <div class="graph" id="number"></div>
+  <div class="graph hideme" id="petition"></div>
+  <div class="graph hideme" id="age"></div>
 </div>

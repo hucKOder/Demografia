@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170613152348) do
+ActiveRecord::Schema.define(version: 20170620161829) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -102,6 +102,7 @@ ActiveRecord::Schema.define(version: 20170613152348) do
     t.integer  "citizens"
     t.jsonb    "info"
     t.string   "picture"
+    t.index ["name"], name: "index_towns_on_name", using: :btree
   end
 
   add_foreign_key "births", "towns"

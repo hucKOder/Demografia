@@ -1,5 +1,5 @@
 <div align="center">
-  <h3>Informácie o rozvodoch v meste <%=@town%> od roku 2010</h3>
+  <h3>Informácie o rozvodoch v meste <%=@town%> od roku 2005</h3>
 </div>
 <script type="text/javascript">
     google.charts.load('current', {'packages':['corechart']});
@@ -16,6 +16,7 @@
 
         var options = {
             title: 'Počet rozvodov v meste <%=@town%>',
+            curveType: 'function',
             legend: { position: 'bottom' }
         };
 
@@ -36,6 +37,7 @@
 
         var options = {
             title: 'Podané návrhy na rozvod v meste <%=@town%>',
+            curveType: 'function',
             legend: { position: 'bottom' }
         };
 
@@ -56,6 +58,7 @@
 
         var options = {
             title: 'Priemerný vek rozvedeného muža a ženy v meste <%=@town%>',
+            curveType: 'function',
             legend: { position: 'bottom' }
         };
 
@@ -68,7 +71,7 @@
 
 
 <div class="container" align="center">
-  <div id="number" style="width: 600px; height: 400px; margin-bottom: 50px;"></div>
-  <div id="petition" style="width: 600px; height: 400px; margin-bottom: 50px;"></div>
-  <div id="age" style="width: 600px; height: 400px; margin-bottom: 50px;"></div>
+  <div class="graph" id="number"></div>
+  <div class="graph hideme" id="petition"></div>
+  <div class="graph hideme" id="age"></div>
 </div>

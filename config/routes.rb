@@ -6,6 +6,7 @@ Rails.application.routes.draw do
 
   get 'marriages/index'
 
+
   resources :towns
   resources :cantons
   resources :categories
