@@ -13,7 +13,7 @@ class HomePageController < ApplicationController
   from marriages
   group by year
   order by year")
-    @avg = @avg.map{ |i| [i.year, i.male, i.female] }
+    @avg = @avg.map{ |i| [i.year, i.male.to_f, i.female.to_f] }
     @avg.insert(0, ["Rok", "Priemerny vek ženícha", "Priemerny vek nevesty"])
 
     @migrations = Migration.find_by_sql("select year, sum(foreign_imigrants) im, sum(foreign_emigrants) em

@@ -71,11 +71,12 @@
   <div class="graph hideme" id="divorces"></div>
   <div class="graph hideme" id="migrations"></div>
 </div>
+
 <script type="text/javascript">
     google.charts.load('current', {'packages':['corechart']});
-    google.charts.setOnLoadCallback(drawChart);
+    google.charts.setOnLoadCallback(drawChartDivorces);
 
-    function drawChart() {
+    function drawChartDivorces() {
         <%@arr = []%>
         <% @arr = @divorces.map{ |i| [i.year, i.d]} %>
         <% @arr = @arr.sort {|a,b| a[0] <=> b[0]}%>
@@ -94,11 +95,9 @@
 
         chart.draw(data, options);
     }
-</script>
 
-<script type="text/javascript">
-    google.charts.setOnLoadCallback(drawChart);
-    function drawChart() {
+    google.charts.setOnLoadCallback(drawChartMarriages);
+    function drawChartMarriages() {
         <%@arr = []%>
         <% @arr = @marriages.map{ |i| [i.year, i.m, i.f]} %>
         <% @arr = @arr.sort {|a,b| a[0] <=> b[0]}%>
