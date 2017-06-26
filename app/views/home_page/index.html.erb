@@ -53,7 +53,24 @@
   </div><!-- /.modal-dialog -->
 </div>
 
+<div class="container" align="center">
+  <div class="row">
+    <div class="information">Táto stránka bola vytvorená ako školský projekt. Všetky dáta boli
+      získané zo stránok Štatistického úradu Slovenskej republiky. Snažili sme sa spracovať niektoré demografické
+      údaje a poskytnúť ich verejnosti pre zlepšenie informovanosti v tejto oblasti. <br/>
+      Zamerali sme sa na oblasti demografie ako počet narodení, úmrtnosť, sobášnosť, rozvodovosť, migráciu.
+    </div>
+  </div>
+</div>
 
+<h3 align="center">Demografický prehľad o Slovensku</h3>
+<div class="container" align="center">
+  <div class="graph" id="births"></div>
+  <div class="graph hideme" id="marriages"></div>
+  <div class="graph hideme" id="avg"></div>
+  <div class="graph hideme" id="divorces"></div>
+  <div class="graph hideme" id="migrations"></div>
+</div>
 <script type="text/javascript">
     google.charts.load('current', {'packages':['corechart']});
     google.charts.setOnLoadCallback(drawChart);
@@ -80,7 +97,6 @@
 </script>
 
 <script type="text/javascript">
-    google.charts.load('current', {'packages':['corechart']});
     google.charts.setOnLoadCallback(drawChart);
     function drawChart() {
         <%@arr = []%>
@@ -150,23 +166,4 @@
         chart.draw(data, options);
     }
 </script>
-
-<div class="container" align="center">
-  <div class="row">
-    <div class="information">Táto stránka bola vytvorená ako školský projekt. Všetky dáta boli
-      získané zo stránok Štatistického úradu Slovenskej republiky. Snažili sme sa spracovať niektoré demografické
-    údaje a poskytnúť ich verejnosti pre zlepšenie informovanosti v tejto oblasti. <br/>
-      Zamerali sme sa na oblasti demografie ako počet narodení, úmrtnosť, sobášnosť, rozvodovosť, migráciu.
-    </div>
-  </div>
-</div>
-
-<h3 align="center">Demografický prehľad o Slovensku</h3>
-<div class="container" align="center">
-  <div class="graph" id="births"></div>
-  <div class="graph hideme" id="marriages"></div>
-  <div class="graph hideme" id="avg"></div>
-  <div class="graph hideme" id="divorces"></div>
-  <div class="graph hideme" id="migrations" style="width: 800px; height: 500px; margin-bottom: 50px;"></div>
-</div>
 
