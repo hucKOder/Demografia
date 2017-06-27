@@ -1,6 +1,6 @@
 class HomePageController < ApplicationController
   def index
-  	@divorces = Divorce.find_by_sql("SELECT year, sum(divorces_number) d FROM divorces GROUP BY year")
+  	@divorces = Divorce.find_by_sql("SELECT year, sum(divorces_number) d FROM divorces GROUP BY year ORDER BY year")
     @marriages = Marriage.find_by_sql("Select year, sum(male_home_number) m, sum(female_home_number) f
                                        FROM marriages GROUP BY year")
     @births = Birth.find_by_sql("Select year, sum(girls) g, sum(boys) b, (sum(girls) + sum(boys)) s  from births GROUP BY year
@@ -27,5 +27,9 @@ class HomePageController < ApplicationController
     @births = @births.map.with_index { |m, i| [m.year, m.s, @deaths[i].sum ] }
     @births.insert(0, ["Rok", "Počet narodení", "Počet umrtí"])
 
+    @x = [5,6,7,8,9,10,11,12,13,14,15]
+    @new_x = [5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]
+    @div = @divorces.map { |i| i.d }
+    @div = @div[0..-5]
   end
 end

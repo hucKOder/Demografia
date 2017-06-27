@@ -55,7 +55,9 @@
         var options = {
             title: 'Rozdiel medzi počtu obyvateľov mesta vzhľadom na narodenia, úmrtia a migráciu',
             curveType: 'function',
-            legend: { position: 'bottom' }
+            legend: { position: 'bottom' },
+            hAxis: { format: ''},
+            vAxis: { format: 'decimal'}
         };
         var chart = new google.visualization.LineChart(document.getElementById('grow'));
         chart.draw(data, options);

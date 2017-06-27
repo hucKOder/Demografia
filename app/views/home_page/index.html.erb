@@ -44,7 +44,7 @@
             <%= text_field_tag :reason, params[:reason], :id => 'basic', :class => 'typeahead' %>
             </div>
             <div class="modal-footer">
-              <a type="button" class="grow btn btn-danger" data-dismiss="modal">Zrušiť</a>
+              <div type="button" class="grow btn btn-danger" data-dismiss="modal">Zrušiť</div>
               <%= submit_tag "Vyhľadať", name: nil, class: "grow btn btn-primary" %>
             </div>
         <% end %>
@@ -63,7 +63,7 @@
   </div>
 </div>
 
-<h3 align="center">Demografický prehľad o Slovensku</h3>
+<h3 align="center">Demografický prehľad o Slovenských mestách</h3>
 <div class="container" align="center">
   <div class="graph" id="births"></div>
   <div class="graph hideme" id="marriages"></div>
@@ -79,16 +79,18 @@
     function drawChartDivorces() {
         <%@arr = []%>
         <% @arr = @divorces.map{ |i| [i.year, i.d]} %>
-        <% @arr = @arr.sort {|a,b| a[0] <=> b[0]}%>
-        <% @arr.insert(0,["Rok", "Rozvody"])%>
-
+        <% @arr = @arr.sort {|a,b| a[0] <=> b[0]} %>
         var myJsArray = <%=raw @arr%>;
+
+        myJsArray.unshift(["Rok", "Rozvody"]);
         var data = google.visualization.arrayToDataTable(myJsArray);
 
         var options = {
             title: 'Počet rozvodov v slovenských mestách',
             curveType: 'function',
-            legend: { position: 'bottom' }
+            legend: { position: 'bottom' },
+            hAxis: { format: ''},
+            vAxis: { format: 'decimal'}
         };
 
         var chart = new google.visualization.LineChart(document.getElementById('divorces'));
@@ -109,7 +111,9 @@
         var options = {
             title: 'Počet sobášov v slovenských mestách',
             curveType: 'function',
-            legend: { position: 'bottom' }
+            legend: { position: 'bottom' },
+            hAxis: { format: ''},
+            vAxis: { format: 'decimal'}
         };
 
         var chart = new google.visualization.LineChart(document.getElementById('marriages'));
@@ -125,7 +129,9 @@
         var options = {
             title: 'Počet narodených ľudí v Slovenských mestách',
             curveType: 'function',
-            legend: { position: 'bottom' }
+            legend: { position: 'bottom' },
+            hAxis: { format: ''},
+            vAxis: { format: 'decimal'}
         };
 
         var chart = new google.visualization.LineChart(document.getElementById('births'));
@@ -141,7 +147,9 @@
         var options = {
             title: 'Priemerny vek ženícha a nevesty v Slovenských mestách',
             curveType: 'function',
-            legend: { position: 'bottom' }
+            legend: { position: 'bottom' },
+            hAxis: { format: ''},
+            vAxis: { format: 'decimal'}
         };
 
         var chart = new google.visualization.LineChart(document.getElementById('avg'));
@@ -157,7 +165,9 @@
         var options = {
             title: 'Počet prisťahovaných a vysťahovaných vzhľadom na Slovenské mestá',
             curveType: 'function',
-            legend: { position: 'bottom' }
+            legend: { position: 'bottom' },
+            hAxis: { format: ''},
+            vAxis: { format: 'decimal'}
         };
 
         var chart = new google.visualization.LineChart(document.getElementById('migrations'));

@@ -6,8 +6,10 @@
   </div>
 </div>
 
+<h3 align="center">Rebríček Slovenských miest za rok <%=@year%></h3>
+
 <div class="container rank">
-  <table class="table table-sm table-fixed">
+  <table class="table table-sm table-fixed">y
   <thead>
   <tr>
     <th>Poradie</th>
@@ -18,7 +20,11 @@
   </thead>
   <tbody>
 <% @rank.each do|k,v|%>
-    <tr data-link="<%= searches_path(:reason => v.second) %>">
+     <%if v.first <= 3 then%>
+          <tr style="background-color: gold" data-link="<%= searches_path(:reason => v.second) %>">
+      <%else%>
+          <tr data-link="<%= searches_path(:reason => v.second) %>">
+      <% end %>
       <td scope="row"><%=v.first%>.</td>
       <td><%= v.second %></td>
       <td><%= v.third.round(3) %></td>
@@ -41,7 +47,11 @@
     </thead>
     <tbody>
     <% @births.each do|k|%>
-        <tr data-link="<%= searches_path(:reason => k.name) %>">
+        <%if k.rank <= 3 then%>
+            <tr style="background-color: gold" data-link="<%= searches_path(:reason => k.name) %>">
+        <%else%>
+            <tr data-link="<%= searches_path(:reason => k.name) %>">
+        <% end %>
           <td scope="row"><%=k.rank%>.</td>
           <td><%= k.name %></td>
           <td><%= k.sum.round(3) %></td>
@@ -64,7 +74,11 @@
     </thead>
     <tbody>
     <% @deaths.each do|k|%>
-        <tr data-link="<%= searches_path(:reason => k.name) %>">
+        <%if k.rank <= 3 then%>
+            <tr style="background-color: gold" data-link="<%= searches_path(:reason => k.name) %>">
+        <%else%>
+            <tr data-link="<%= searches_path(:reason => k.name) %>">
+        <% end %>
           <td scope="row"><%=k.rank%>.</td>
           <td><%= k.name %></td>
           <td><%= k.sum.round(3) %></td>
