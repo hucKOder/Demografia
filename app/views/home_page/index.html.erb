@@ -28,6 +28,7 @@
 <%= content_tag :div, class: "temp_information", data: {temp: @towns} do %>
 <%end%>
 
+<%= form_tag(searches_path, method: 'get') do %>
 <div class="modal fade" id="approvalModal" tabindex="-1" role="dialog" aria-labelledby="approvalModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -39,7 +40,7 @@
         <h4 class="modal-title">Vyhľadávanie</h4>
       </div>
       <div class="modal-body">
-        <%= form_tag(searches_path, method: 'get') do %>
+
             <%= label_tag 'town', 'Zadaj mesto, ktorého informácie chceš vidieť:', :class => 'control-label' %>
             <%= text_field_tag :reason, params[:reason], :id => 'basic', :class => 'typeahead'%>
             </div>
@@ -47,11 +48,11 @@
               <div type="button" class="grow btn btn-danger" data-dismiss="modal">Zrušiť</div>
               <%= submit_tag "Vyhľadať", name: nil, class: "grow btn btn-primary" %>
             </div>
-        <% end %>
     </div>
         </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
-</div>
+<% end %>
+
 
 <div class="container" align="center">
   <div class="row">

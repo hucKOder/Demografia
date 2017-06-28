@@ -1,3 +1,6 @@
+$('#approvalModal').on('hidden.bs.modal', function () {
+    location.reload();
+})
 
 $(document).on("turbolinks:load", function(){
     var substringMatcher = function(strs) {
