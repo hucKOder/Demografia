@@ -41,7 +41,7 @@
       <div class="modal-body">
         <%= form_tag(searches_path, method: 'get') do %>
             <%= label_tag 'town', 'Zadaj mesto, ktorého informácie chceš vidieť:', :class => 'control-label' %>
-            <%= text_field_tag :reason, params[:reason], :id => 'basic', :class => 'typeahead' %>
+            <%= text_field_tag :reason, params[:reason], :id => 'basic', :class => 'typeahead'%>
             </div>
             <div class="modal-footer">
               <div type="button" class="grow btn btn-danger" data-dismiss="modal">Zrušiť</div>
