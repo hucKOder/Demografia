@@ -1,0 +1,56 @@
+<div align="center">
+  <h3>Informácie o úmrtiach v meste <%=@town%> od roku 2005</h3>
+</div>
+
+<script type="text/javascript">
+    google.charts.load('current', {'packages':['corechart']});
+    google.charts.setOnLoadCallback(drawChartSum);
+
+    function drawChartSum() {
+
+
+        var myJsArray = <%=raw @sum%>;
+        var data = google.visualization.arrayToDataTable(myJsArray);
+
+        var options = {
+            title: 'Počet zomretých v priebehu rokov',
+            curveType: 'function',
+            hAxis: { format: ''},
+            vAxis: { format: 'decimal'},
+            legend: { position: 'bottom' }
+        };
+
+        var chart = new google.visualization.LineChart(document.getElementById('sum'));
+
+        chart.draw(data, options);
+    }
+    google.charts.setOnLoadCallback(drawChartDeath);
+
+    function drawChartDeath() {
+
+
+        var myJsArray = <%=raw @arr%>;
+        var data = google.visualization.arrayToDataTable(myJsArray);
+
+        var options = {
+            title: 'Počet zomretých mužov a žien v priebehu rokov',
+            curveType: 'function',
+            hAxis: { format: ''},
+            vAxis: { format: 'decimal'},
+            legend: { position: 'bottom' }
+        };
+
+        var chart = new google.visualization.LineChart(document.getElementById('number'));
+
+        chart.draw(data, options);
+    }
+</script>
+
+
+
+<div class="container" align="center">
+  <div class="row">
+    <div id="number" class="graph"></div>
+    <div class="graph hideme" id="sum"></div>
+  </div>
+</div>

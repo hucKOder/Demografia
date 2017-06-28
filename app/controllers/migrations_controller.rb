@@ -1,34 +1,28 @@
 class MigrationsController < ApplicationController
 	def index
+		@town = params[:town]
+		id = params[:migrations]
 
-		@migrations = Migration.find_by_sql("SELECT * FROM #{params[:type]} WHERE town_id = #{params[:id]}")
-		@type = params[:type]
+		@migrations = Migration.where(town_id: id)
 
-    info = "SELECT year y, sum(count) x FROM #{params[:type]}
-    WHERE town_id = #{params[:id]}
-    GROUP BY year
-    ORDER BY year ASC"
-    infoMigration = "SELECT year y, sum(emigrants) x, sum(imigrants) i FROM #{params[:type]}
-              WHERE town_id = #{params[:id]}
-              GROUP BY year
-              ORDER BY year ASC"
-    @information = get_type(params, info, infoMigration)
+		@male= []
+		@male = @migrations.map{ |i| [i.year, i.male_imigrants, i.male_emigrants]}
+		@male = @male.sort {|a,b| a[0] <=> b[0]}
+		@male.insert(0,["Rok", "Počet prisťahovaných mužov", "Počet vysťahovaných mužov"])
 
-	end
+		@female = []
+		@female = @migrations.map{ |i| [i.year, i.female_imigrants, i.female_emigrants]}
+		@female = @female.sort {|a,b| a[0] <=> b[0]}
+		@female.insert(0,["Rok", "Počet prisťahovaných žien", "Počet vysťahovaných žien"])
 
-	def get_type(params, info, infoMigration)
-		record = ""
-    case params[:type]
-			when "deaths"
-				record = Death.find_by_sql(info)
-			when "births"
-				record = Birth.find_by_sql(info)
-			when "mariages"
-				record = Marriage.find_by_sql(info)
-			when "divorces"
-				record = Divorce.find_by_sql(info)
-			when "migrations"
-				record = Migration.find_by_sql(infoMigration)
-		end
+		@sr = []
+		@sr = @migrations.map{ |i| [i.year, i.sr_imigrants, i.sr_emigrants]}
+		@sr = @sr.sort {|a,b| a[0] <=> b[0]}
+		@sr.insert(0,["Rok", "Počet prisťahovaných zo Slovneska", "Počet vysťahovaných na Slovensko"])
+
+		@fgn = []
+		@fgn = @migrations.map{ |i| [i.year, i.foreign_imigrants, i.foreign_emigrants]}
+		@fgn = @fgn.sort {|a,b| a[0] <=> b[0]}
+		@fgn.insert(0,["Rok", "Počet prisťahovaných zo zahraničia", "Počet vysťahovaných do zahraničia"])
 	end
 end

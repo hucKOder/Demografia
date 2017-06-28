@@ -1,230 +1,79 @@
-<% if @type == "migrations" then %>
-<div class="container">
-	<h1 align="center">Štatistiky Migrácie</h1>
+<div align="center">
+  <h3>Informácie o migráciách v meste <%=@town%> od roku 2005</h3>
 </div>
-<div class="container">
-	<table class="table">
-		<thead>
-			<tr>
-				<th>Rok</th>
-				<th>Vek</th>
-				<th>Vysťahovalci</th>
-				<th>Prisťahovali</th>
-				<th>Dôvod</th>
-				<th>Pohlavie</th>
-			</tr>
-		</thead>
-		<tbody>
-			<% @migrations.each do |migration| %>
-			<tr>
-				<td><%= migration.year %></td>
-				<td><%= migration.age %></td>
-				<td><%= migration.emigrants %></td>
-				<td><%= migration.imigrants %></td>
-				<td><%= migration.reason %></td>
-				<td><%= migration.gender %></td>
-			</tr>
-			<% end %>
-		</tbody>
-	</table>
-</div>
-<%end%>
 
-
-
-<% if @type == "deaths" then %>
-<div class="container">
-	<h1 align="center">Štatistiky Úmrtí</h1>
-</div>
-<div class="container">
-	<table class="table">
-		<thead>
-			<tr>
-				<th>Rok</th>
-				<th>Vek</th>
-				<th>Počet</th>
-				<th>Pohlavie</th>
-			</tr>
-		</thead>
-		<tbody>
-			<% @migrations.each do |migration| %>
-			<tr>
-				<td><%= migration.year %></td>
-				<td><%= migration.age %></td>
-				<td><%= migration.count %></td>
-				<td><%= migration.gender %></td>
-			</tr>
-			<% end %>
-		</tbody>
-	</table>
-</div>
-<%end%>
-
-
-
-
-<% if @type == "births" then %>
-<div class="container">
-	<h1 align="center">Štatistiky Narodení</h1>
-</div>
-<div class="container">
-	<table class="table">
-		<thead>
-			<tr>
-				<th>Rok</th>
-				<th>Vek matky</th>
-				<th>Počet</th>
-				<th>Pohlavie</th>
-			</tr>
-		</thead>
-		<tbody>
-			<% @migrations.each do |migration| %>
-			<tr>
-				<td><%= migration.year %></td>
-				<td><%= migration.mother_age %></td>
-				<td><%= migration.count %></td>
-				<td><%= migration.gender %></td>
-			</tr>
-			<% end %>
-		</tbody>
-	</table>
-</div>
-<%end%>
-
-
-
-
-<% if @type == "divorces" then %>
-<div class="container">
-	<h1 align="center">Štatistiky Rozvodovosti</h1>
-</div>
-<div class="container">
-	<table class="table">
-		<thead>
-			<tr>
-				<th>Rok</th>
-				<th>Vek ženy</th>
-				<th>Vek muža</th>
-				<th>Počet</th>
-				<th>Trvanie manželstva</th>
-				<th>Pohlavie požiadalo o rozvod</th>
-				<th>Verdikt</th>
-			</tr>
-		</thead>
-		<tbody>
-			<% @migrations.each do |migration| %>
-			<tr>
-				<td><%= migration.year %></td>
-				<td><%= migration.women_age %></td>
-				<td><%= migration.man_age %></td>
-				<td><%= migration.count %></td>
-				<td><%= migration.duration %></td>
-				<td><%= migration.gender_file_a_petition %></td>
-				<td><%= migration.verdict %></td>
-			</tr>
-			<% end %>
-		</tbody>
-	</table>
-</div>
-<%end%>
-
-
-
-<% if @type == "mariages" then %>
-<div class="container">
-	<h1 align="center">Štatistiky Sobášov</h1>
-</div>
-<div class="container">
-	<table class="table">
-		<thead>
-			<tr>
-				<th>Rok</th>
-				<th>Vek nevesty</th>
-				<th>Vek ženícha</th>
-				<th>Počet</th>
-				<th>Manželstvo v poradí</th>
-			</tr>
-		</thead>
-		<tbody>
-			<% @migrations.each do |migration| %>
-			<tr>
-				<td><%= migration.year %></td>
-				<td><%= migration.bride_age %></td>
-				<td><%= migration.fiance_age %></td>
-				<td><%= migration.count %></td>
-				<td><%= migration.mariage_count %></td>
-			</tr>
-			<% end %>
-		</tbody>
-	</table>
-</div>
-<%end%>
-
-<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script type="text/javascript">
     google.charts.load('current', {'packages':['corechart']});
-    google.charts.setOnLoadCallback(drawChart);
+    google.charts.setOnLoadCallback(drawChartMale);
 
-    function drawChart() {
-        <%@arr = []%>
-        <% if @type != "migrations" then%>
-          <% @arr = @information.map{ |i| [i.y.to_s, i.x]} %>
-          <% @arr.insert(0,["Rok", "Počet"])%>
-        <%else%>
-          <% @arr = @information.map{ |i| [i.y.to_s, i.x, i.i]}%>
-          <% @arr.insert(0,["Rok", "Vysťahovaný", "Prisťahovaný"])%>
-        <% end %>
+    function drawChartMale() {
+        var myJsArray = <%=raw @male%>;
+        var data = google.visualization.arrayToDataTable(myJsArray);
+        var options = {
+            title: 'Počet vysťahovaných a prisťahovaných mužov',
+            curveType: 'function',
+            hAxis: { format: ''},
+            vAxis: { format: 'decimal'},
+            legend: { position: 'bottom' }
+        };
+        var chart = new google.visualization.LineChart(document.getElementById('male'));
+        chart.draw(data, options);
+    }
 
-        var myJsArray = <%=raw @arr%>;
+    google.charts.setOnLoadCallback(drawChartFemale);
+    function drawChartFemale() {
+        var myJsArray = <%=raw @female%>;
+        var data = google.visualization.arrayToDataTable(myJsArray);
+        var options = {
+            title: 'Počet vysťahovaných a prisťahovaných žien',
+            curveType: 'function',
+            hAxis: { format: ''},
+            vAxis: { format: 'decimal'},
+            legend: { position: 'bottom' }
+        };
+        var chart = new google.visualization.LineChart(document.getElementById('female'));
+        chart.draw(data, options);
+    }
+
+    google.charts.setOnLoadCallback(drawChartSr);
+    function drawChartSr() {
+        var myJsArray = <%=raw @sr%>;
         var data = google.visualization.arrayToDataTable(myJsArray);
 
         var options = {
-            title: 'Priebeh podľa rokov',
+            title: 'Prisťahovaní zo Slovenska a vysťahovaní na Slovensko',
+            curveType: 'function',
+            hAxis: { format: ''},
+            vAxis: { format: 'decimal'},
             legend: { position: 'bottom' }
         };
 
-        var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+        var chart = new google.visualization.LineChart(document.getElementById('sr'));
 
+        chart.draw(data, options);
+    }
+
+    google.charts.setOnLoadCallback(drawChartFgn);
+    function drawChartFgn() {
+        var myJsArray = <%=raw @fgn%>;
+        var data = google.visualization.arrayToDataTable(myJsArray);
+        var options = {
+            title: 'Prisťahovaní zo zahraničia a vysťahovaní do zahraničia',
+            curveType: 'function',
+            hAxis: { format: ''},
+            vAxis: { format: 'decimal'},
+            legend: { position: 'bottom' }
+        };
+        var chart = new google.visualization.LineChart(document.getElementById('fgn'));
         chart.draw(data, options);
     }
 </script>
 
-<%if !@information.empty?%>
+
+
 <div class="container" align="center">
-<div id="curve_chart" style="width: 900px; height: 500px; margin-bottom: 50px;"></div>
-</div>
-<%end%>
-
-<div class="span4" align="center">
-  <table class="table">
-    <thead>
-    <tr>
-      <th class="text-center col-md-2">Rok: </th>
-      <% @information.each do |year|%>
-          <th class="text-center col-md-2"><%= year.y %></th>
-      <% end %>
-
-    </tr>
-    </thead>
-    <tbody>
-    <tr>
-      <%if @information == "migrations" then%>
-          <td class="text-center col-md-2">Emigranti: </td>
-      <%else%>
-          <td class="text-center col-md-2">Počet: </td>
-      <% end %>
-      <% @information.each do |year|%>
-          <td class="text-center col-md-2"><%= year.x%></td>
-      <% end %>
-    </tr>
-    <%if @type == "migrations" then%>
-        <tr>
-          <td class="text-center col-md-2">Imigranti: </td>
-          <% @information.each do |year|%>
-              <td class="text-center col-md-2"><%= year.i%></td>
-          <% end %>
-        </tr>
-    <%end%>
-    </tbody>
-  </table>
+  <div class="graph" id="male"></div>
+  <div class="graph hideme" id="female"></div>
+  <div class="graph hideme" id="sr"></div>
+  <div class="graph hideme" id="fgn"></div>
 </div>

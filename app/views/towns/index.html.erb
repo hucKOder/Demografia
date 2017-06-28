@@ -1,17 +1,34 @@
-<div class="container" align="center" style="padding-bottom: 20px">
-  <h2>Mestá</h2>
-  <hr/>
-</div>
+<h3 align="center">Vyber si mesto, ktorého informácie hľadáš</h3>
 
-<div class='container' align="center">
-	<% @towns.each_slice(6) do |towns| %>
-  <div class="row">
-    <% towns.each do |town|%>
-    <div class='col-md-2'>
-      <h4><%= link_to town.name, categories_path(:town_id => town.id) %>
-			</h4>
-    </div>
-    <% end %>
+<script type="text/javascript" charset="utf-8">
+    jQuery(function ($) {
+        $.fn.hScroll = function (amount) {
+            amount = amount || 120;
+            $(this).bind("DOMMouseScroll mousewheel", function (event) {
+                var oEvent = event.originalEvent,
+                    direction = oEvent.detail ? oEvent.detail * -amount : oEvent.wheelDelta,
+                    position = $(this).scrollLeft();
+                position += direction > 0 ? -amount : amount;
+                $(this).scrollLeft(position);
+                event.preventDefault();
+            })
+        };
+    });
+
+    $(document).ready(function() {
+        $('#pagination_table').hScroll(60); // You can pass (optionally) scrolling amount
+    });
+</script>
+
+<div class="container">
+  <div class="row" align="center">
+    <%= alphabetical_paginate @alphaParams %>
   </div>
-  <% end %>
+  <div class="row">
+    <div class="container" id="pagination_table">
+    <% @towns.each do |user| %>
+          <%= link_to user.name, searches_path(:reason => user.name), class: "i grow btn btn-default btn-sq-lg btn-md"%>
+    <% end %>
+    </div>
+  </div>
 </div>

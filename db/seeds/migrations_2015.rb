@@ -1,8 +1,8 @@
 require 'csv'
 
-place = '2010'
+place = '2005'
 
-6.times do
+5.times do
 CSV.foreach('/home/yourtruefrend/Desktop/DB-obce/migracia/migracia_'+place+'.csv') do |row|
   town = row[0]
   town_id = 0

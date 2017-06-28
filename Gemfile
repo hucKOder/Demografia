@@ -5,9 +5,16 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
+gem 'gmaps4rails'
+gem 'twitter-typeahead-rails'
+gem 'google-analytics-rails', '1.1.0'
+gem 'alphabetical_paginate'
+gem 'jquery-ui-rails'
+gem 'nokogiri'
+gem 'wikipedia-client'
 gem 'bootstrap-sass', '~> 3.2.0'
 gem 'autoprefixer-rails'
-
+gem 'd3-rails'
 gem "chartkick"
 gem 'faker'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'

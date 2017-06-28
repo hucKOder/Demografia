@@ -5,72 +5,176 @@
       <h3>Vyber si obdobie, ktoré ťa zaujíma</h3>
     </div>
     <div class='col-xs-6' align="center">
-      <h3>Hľadaj konkrétne podľa krajov Slovenska</h3>  
+      <h3>Hľadaj konkrétne podľa miest Slovenska</h3>
     </div> 
   </div>
   <div class='row'>
     <div class='col-xs-6' align="center">
-      <%= form_tag(years_path, method: 'get') do %> 
-      <%= submit_tag 'Vybrať', class: "btn btn-primary" %>
+      <%= form_tag(years_path, method: 'get') do %>
+          <%= select("Rok", "year", @deaths.collect {|r| [r.year] }) %>
+      <%= submit_tag 'Vybrať', class: "grow btn btn-primary" %>
       <%end%>
     </div>
     <div class='col-xs-6' align="center">
-      <%= link_to 'Pokračuj tu', searches_path, class: "btn btn-primary"%>
+      <button class="grow btn btn-primary" data-toggle="modal" data-target="#approvalModal">
+        Pokračuj tu
+      </button>
     </div>
+
     <hr/>
   </div>
 </div>
 
-<script type="text/javascript">
-    google.charts.load('current', {'packages':['corechart']});
-    google.charts.setOnLoadCallback(drawChart);
+<%= content_tag :div, class: "temp_information", data: {temp: @towns} do %>
+<%end%>
 
-    function drawChart() {
+<%= form_tag(searches_path, method: 'get') do %>
+<div class="modal fade" id="approvalModal" tabindex="-1" role="dialog" aria-labelledby="approvalModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">
+          <span aria-hidden="true">&times;</span>
+          <span class="sr-only">Close</span>
+        </button>
+        <h4 class="modal-title">Vyhľadávanie</h4>
+      </div>
+      <div class="modal-body">
+
+            <%= label_tag 'town', 'Zadaj mesto, ktorého informácie chceš vidieť:', :class => 'control-label' %>
+            <%= text_field_tag :reason, params[:reason], :id => 'basic', :class => 'typeahead'%>
+            </div>
+            <div class="modal-footer">
+              <div type="button" class="grow btn btn-danger" data-dismiss="modal">Zrušiť</div>
+              <%= submit_tag "Vyhľadať", name: nil, class: "grow btn btn-primary" %>
+            </div>
+    </div>
+        </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+<% end %>
+
+
+<div class="container" align="center">
+  <div class="row">
+    <div class="information">Táto stránka bola vytvorená ako školský projekt. Všetky dáta boli
+      získané zo stránok Štatistického úradu Slovenskej republiky. Snažili sme sa spracovať niektoré demografické
+      údaje a poskytnúť ich verejnosti pre zlepšenie informovanosti v tejto oblasti. <br/>
+      Zamerali sme sa na oblasti demografie ako počet narodení, úmrtnosť, sobášnosť, rozvodovosť, migráciu.
+    </div>
+  </div>
+</div>
+
+<h3 align="center">Demografický prehľad o Slovenských mestách</h3>
+<div class="container" align="center">
+  <div class="graph" id="births"></div>
+  <div class="graph hideme" id="marriages"></div>
+  <div class="graph hideme" id="avg"></div>
+  <div class="graph hideme" id="divorces"></div>
+  <div class="graph hideme" id="migrations"></div>
+</div>
+
+<script type="text/javascript">
+
+    google.charts.load('current', {'packages':['corechart']});
+    google.charts.setOnLoadCallback(drawChartDivorces);
+
+    function drawChartDivorces() {
         <%@arr = []%>
         <% @arr = @divorces.map{ |i| [i.year, i.d]} %>
-        <% @arr.insert(0,["Rok", "Rozvody"])%>
-
+        <% @arr = @arr.sort {|a,b| a[0] <=> b[0]} %>
         var myJsArray = <%=raw @arr%>;
+
+        myJsArray.unshift(["Rok", "Rozvody"]);
         var data = google.visualization.arrayToDataTable(myJsArray);
 
         var options = {
-            title: 'Priebeh podľa rokov',
-            legend: { position: 'bottom' }
+            title: 'Počet rozvodov v slovenských mestách',
+            curveType: 'function',
+            legend: { position: 'bottom' },
+            hAxis: { format: ''},
+            vAxis: { format: 'decimal'}
         };
 
-        var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+        var chart = new google.visualization.LineChart(document.getElementById('divorces'));
 
         chart.draw(data, options);
     }
-</script>
 
-<script type="text/javascript">
-    google.charts.load('current', {'packages':['corechart']});
-    google.charts.setOnLoadCallback(drawChart);
-
-    function drawChart() {
+    google.charts.setOnLoadCallback(drawChartMarriages);
+    function drawChartMarriages() {
         <%@arr = []%>
         <% @arr = @marriages.map{ |i| [i.year, i.m, i.f]} %>
+        <% @arr = @arr.sort {|a,b| a[0] <=> b[0]}%>
         <% @arr.insert(0,["Rok", "Sobáše v mieste bydliska ženícha", "Sobáše v mieste bydliska nevesty"])%>
 
         var myJsArray = <%=raw @arr%>;
         var data = google.visualization.arrayToDataTable(myJsArray);
 
         var options = {
-            title: 'Percentuálny pomer',
-            legend: { position: 'bottom' }
+            title: 'Počet sobášov v slovenských mestách',
+            curveType: 'function',
+            legend: { position: 'bottom' },
+            hAxis: { format: ''},
+            vAxis: { format: 'decimal'}
         };
 
-        var chart = new google.visualization.LineChart(document.getElementById('piechart'));
+        var chart = new google.visualization.LineChart(document.getElementById('marriages'));
+
+        chart.draw(data, options);
+    }
+
+    google.charts.setOnLoadCallback(drawChartBirth);
+    function drawChartBirth() {
+        var myJsArray = <%=raw @births%>;
+        var data = google.visualization.arrayToDataTable(myJsArray);
+
+        var options = {
+            title: 'Počet narodených ľudí v Slovenských mestách',
+            curveType: 'function',
+            legend: { position: 'bottom' },
+            hAxis: { format: ''},
+            vAxis: { format: 'decimal'}
+        };
+
+        var chart = new google.visualization.LineChart(document.getElementById('births'));
+
+        chart.draw(data, options);
+    }
+
+    google.charts.setOnLoadCallback(drawChartAvg);
+    function drawChartAvg() {
+        var myJsArray = <%=raw @avg%>;
+        var data = google.visualization.arrayToDataTable(myJsArray);
+
+        var options = {
+            title: 'Priemerny vek ženícha a nevesty v Slovenských mestách',
+            curveType: 'function',
+            legend: { position: 'bottom' },
+            hAxis: { format: ''},
+            vAxis: { format: 'decimal'}
+        };
+
+        var chart = new google.visualization.LineChart(document.getElementById('avg'));
+
+        chart.draw(data, options);
+    }
+
+    google.charts.setOnLoadCallback(drawChartMig);
+    function drawChartMig() {
+        var myJsArray = <%=raw @migrations%>;
+        var data = google.visualization.arrayToDataTable(myJsArray);
+
+        var options = {
+            title: 'Počet prisťahovaných a vysťahovaných vzhľadom na Slovenské mestá',
+            curveType: 'function',
+            legend: { position: 'bottom' },
+            hAxis: { format: ''},
+            vAxis: { format: 'decimal'}
+        };
+
+        var chart = new google.visualization.LineChart(document.getElementById('migrations'));
 
         chart.draw(data, options);
     }
 </script>
 
-<div class="container" align="center">
-  <div id="curve_chart" style="width: 900px; height: 500px; margin-bottom: 50px;"></div>
-</div>
-
-<div class="container" align="center">
-  <div id="piechart" style="width: 900px; height: 500px; margin-bottom: 50px;"></div>
-</div>

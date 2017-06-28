@@ -1,194 +1,148 @@
-<h2 align="center">Môžes filtrovať v kategóriách: Úmrtnosť - Pôrodnosť - Sobáše - Rozvody - Migrácia</h2>
-<div class="container" align="center">
-	<%= form_tag(years_path, method: 'get') do %>
-	<%= text_field_tag :year, nil, placeholder: "Zadaj rok" %>
-	<%= text_field_tag :town, nil,placeholder: "Zadaj mesto"%>
-      <a data-toggle="tooltip" data-placement="top" title="Filtrovanie podľa pohlavia nie je účinné pre Sobáše a Rozvody">
-        <%= text_field_tag :gender, nil, placeholder: "Zadaj pohlavie" %>
-      </a>
-      <%= select_tag(:demograf, options_for_select([['Úmrtnosť','umrtnost'],['Pôrodnosť','porodnost'],['Sobáše','sobase'],['Rozvody','rozvody'],['Migrácia','migracia']])) %>
-	<%= submit_tag 'Filter', class: "btn btn-primary" %>
-	<% end %>
+<div class="container">
+  <div class="row">
+<div class="btn btn-primary r col-lg-4 col-md-4 col-sm-6 col-xs-6 grow">Rast obyvateľstva</div>
+<div class="btn btn-primary b col-lg-4 col-md-4 col-sm-6 col-xs-6 grow">Pôrodnosť</div>
+<div class="btn btn-primary d col-lg-4 col-md-4 col-sm-6 col-xs-6 grow">Úmrtnosť</div>
+  </div>
 </div>
 
-<% table = { :death => ["Rok", "Vek", "Počet", "Pohlavie", "Mesto"],
-	:birth => ["Rok", "Vek matky", "Počet", "Pohlavie", "Mesto"],
-	:marriage => ["Rok", "Vek nevesty", "Vek ženícha", "Počet", "Manželstvo v poradí", "Mesto"],
-	:divorce => ["Rok", "Vek ženy", "Vek muža", "Počet", "Trvanie", "Pohlavie podalo návrh", "Verdikt", "Mesto"],
-	:migration => ["Rok", "Vek", "Vysťahovalci", "Prisťahovalci", "Dôvod", "Pohlavie", "Mesto"] }%>
+<h3 align="center">Rebríček Slovenských miest za rok <%=@year%></h3>
 
-
-	<div class="container">
-    <%if @type == :death then%>
-		  <h1 align="center">Štatistiky Úmrtí</h1>
-    <%elsif @type == :birth then%>
-        <h1 align="center">Štatistiky narodení</h1>
-        <%elsif @type == :marriage then%>
-        <h1 align="center">Štatistiky sobášov</h1>
-        <%elsif @type == :divorce then%>
-        <h1 align="center">Štatistiky rozvodov</h1>
-        <%elsif @type == :migration then%>
-        <h1 align="center">Štatistiky migrácií</h1>
-        <%else%>
-        <h1 align="center">Príklad zobrazenia Štatistík</h1>
-        <%end%>
-	</div>
-	<div class="span3">
-		<table class="table">
-			<thead>
-				<tr>
-          <th class="text-center col-md-2">Uprav</th>
-					<% table[@type].each do |type|%>
-					<th class="text-center col-md-2"><%= type %></th>
-					<% end %>
-				</tr>
-			</thead>
-			<tbody>
-				<%if @type == :death then%>
-				<% @deaths.each do |death|%>
-				<tr class="highlight-row">
-          <td class="text-center col-md-2"><%= link_to 'Vybrať', edits_path(:id => death.id, :type => "deaths", :town => death.z), class: "btn btn-primary"%></td>
-					<td class="text-center col-md-2"><%= death.year %></td>
-					<td class="text-center col-md-2"><%= death.age %></td>
-					<td class="text-center col-md-2"><%= death.count %></td>
-					<td class="text-center col-md-2"><%= death.gender %></td>
-					<td class="text-center col-md-2"><%= death.z%></td>
-				</tr>
-				<% end %>
-				<% end %>
-
-				<%if @type == :birth then%>
-				<% @deaths.each do |death|%>
-				<tr class="highlight-row">
-          <td class="text-center col-md-2"><%= link_to 'Vybrať', edits_path(:id => death.id, :type => "births", :town => death.z), class: "btn btn-primary"%></td>
-          <td class="text-center col-md-2"><%= death.year %></td>
-					<td class="text-center col-md-2"><%= death.mother_age %></td>
-					<td class="text-center col-md-2"><%= death.count %></td>
-					<td class="text-center col-md-2"><%= death.gender %></td>
-					<td class="text-center col-md-2"><%= death.z%></td>
-				</tr>
-				<% end %>
-				<% end %>
-				<%if @type == :marriage then%>
-				<% @deaths.each do |death|%>
-				<tr class="highlight-row">
-          <td class="text-center col-md-2"><%= link_to 'Vybrať', edits_path(:id => death.id, :type => "mariages", :town => death.z), class: "btn btn-primary"%></td>
-          <td class="text-center col-md-2"><%= death.year %></td>
-					<td class="text-center col-md-2"><%= death.bride_age %></td>
-					<td class="text-center col-md-2"><%= death.fiance_age %></td>
-					<td class="text-center col-md-2"><%= death.count %></td>
-					<td class="text-center col-md-2"><%= death.mariage_count %></td>
-					<td class="text-center col-md-2"><%= death.z%></td>
-				</tr>
-				<% end %>
-				<% end %>
-				<%if @type == :divorce then%>
-				<% @deaths.each do |death|%>
-				<tr class="highlight-row">
-          <td class="text-center col-md-2"><%= link_to 'Vybrať', edits_path(:id => death.id, :type => "divorces", :town => death.z), class: "btn btn-primary"%></td>
-          <td class="text-center col-md-2"><%= death.year %></td>
-					<td class="text-center col-md-2"><%= death.women_age %></td>
-					<td class="text-center col-md-2"><%= death.man_age %></td>
-					<td class="text-center col-md-2"><%= death.count %></td>
-					<td class="text-center col-md-2"><%= death.duration%></td>
-					<td class="text-center col-md-2"><%= death.gender_file_a_petition%></td>
-					<td class="text-center col-md-2"><%= death.verdict%></td>
-					<td class="text-center col-md-2"><%= death.z%></td>
-				</tr>
-				<% end %>
-				<% end %>
-				<%if @type == :migration then%>
-				<% @deaths.each do |death|%>
-				<tr class="highlight-row">
-          <td class="text-center col-md-2"><%= link_to 'Vybrať', edits_path(:id => death.id, :type => "migrations", :town => death.z), class: "btn btn-primary"%></td>
-          <td class="text-center col-md-2"><%= death.year %></td>
-					<td class="text-center col-md-2"><%= death.age %></td>
-					<td class="text-center col-md-2"><%= death.emigrants%></td>
-					<td class="text-center col-md-2"><%= death.imigrants%></td>
-					<td class="text-center col-md-2"><%= death.reason%></td>
-					<td class="text-center col-md-2"><%= death.gender%></td>
-					<td class="text-center col-md-2"><%= death.z%></td>
-				</tr>
-				<% end %>
-				<% end %>
-			</tbody>
-		</table>
-	</div>
-
-
-<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-<script type="text/javascript">
-    google.charts.load('current', {'packages':['corechart']});
-    google.charts.setOnLoadCallback(drawChart);
-
-    function drawChart() {
-        <%@arr = []%>
-        <% if @type != :migration then%>
-          <% @arr = @years.map{ |i| [i.y.to_s, i.x] } %>
-          <% @arr.insert(0,["Rok", "Počet"])%>
-        <%else%>
-          <% @arr = @years.map{ |i| [i.y.to_s, i.x, i.i] }%>
-          <% @arr.insert(0,["Rok", "Vysťahovalci", "Prisťahovalci"])%>
-        <% end %>
-
-        var myJsArray = <%=raw @arr%>;
-        var data = google.visualization.arrayToDataTable(myJsArray);
-
-        var options = {
-            title: 'Priebeh podľa rokov',
-            legend: { position: 'bottom' }
-        };
-
-        var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
-
-        chart.draw(data, options);
-    }
-</script>
-
-<div class="container" align="center">
-  <div id="curve_chart" style="width: 900px; height: 500px; margin-bottom: 50px;"></div>
+<div class="container rank">
+  <table class="table table-sm table-fixed">
+  <thead>
+  <tr>
+    <th>Poradie</th>
+    <th>Mesto</th>
+    <th>Rast v %</th>
+    <th>Počet obyvateľov</th>
+  </tr>
+  </thead>
+  <tbody>
+<% @rank.each do|k,v|%>
+     <%if v.first <= 3 then%>
+          <tr style="background-color: gold" data-link="<%= searches_path(:reason => v.second) %>">
+      <%else%>
+          <tr data-link="<%= searches_path(:reason => v.second) %>">
+      <% end %>
+      <td scope="row"><%=v.first%>.</td>
+      <td><%= v.second %></td>
+      <td><%= v.third.round(3) %></td>
+      <td><%= v.fourth %></td>
+    </tr>
+<%end%>
+  </tbody>
+</table>
 </div>
 
-
-<div class="span4" align="center">
-  <table class="table">
+<div class="container births">
+  <table class="table table-sm">
     <thead>
     <tr>
-      <th class="text-center col-md-2">Rok: </th>
-      <% @years.each do |year|%>
-          <th class="text-center col-md-2"><%= year.y %></th>
-      <% end %>
-
+      <th>Poradie</th>
+      <th>Mesto</th>
+      <th>Pôrodnosť v %</th>
+      <th>Počet obyvateľov</th>
     </tr>
     </thead>
     <tbody>
-            <tr>
-              <%if @type == :migration then%>
-                  <td class="text-center col-md-2">Emigranti: </td>
-              <%else%>
-                  <td class="text-center col-md-2">Počet: </td>
-              <% end %>
-              <% @years.each do |year|%>
-              <td class="text-center col-md-2"><%= year.x%></td>
-              <% end %>
-            </tr>
-            <%if @type == :migration then%>
-        <tr>
-          <td class="text-center col-md-2">Imigranti: </td>
-            <% @years.each do |year|%>
-              <td class="text-center col-md-2"><%= year.i%></td>
-            <% end %>
+    <% @births.each do|k|%>
+        <%if k.rank <= 3 then%>
+            <tr style="background-color: gold" data-link="<%= searches_path(:reason => k.name) %>">
+        <%else%>
+            <tr data-link="<%= searches_path(:reason => k.name) %>">
+        <% end %>
+          <td scope="row"><%=k.rank%>.</td>
+          <td><%= k.name %></td>
+          <td><%= k.sum.round(3) %></td>
+          <td><%= k.citizens %></td>
         </tr>
-            <%end%>
+    <%end%>
     </tbody>
   </table>
 </div>
 
-<script>
-    $("tr[data-link]").click(function() {
-        window.location = $(this).data("link")
-    })
-    $(function () {
-        $('[data-toggle="tooltip"]').tooltip();
+<div class="container deaths">
+  <table class="table table-sm">
+    <thead>
+    <tr>
+      <th>Poradie</th>
+      <th>Mesto</th>
+      <th>Úmrtnosť v %</th>
+      <th>Počet obyvateľov</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @deaths.each do|k|%>
+        <%if k.rank <= 3 then%>
+            <tr style="background-color: gold" data-link="<%= searches_path(:reason => k.name) %>">
+        <%else%>
+            <tr data-link="<%= searches_path(:reason => k.name) %>">
+        <% end %>
+          <td scope="row"><%=k.rank%>.</td>
+          <td><%= k.name %></td>
+          <td><%= k.sum.round(3) %></td>
+          <td><%= k.citizens %></td>
+        </tr>
+    <%end%>
+    </tbody>
+  </table>
+</div>
+
+<script type="text/javascript" charset="utf-8">
+    $(document).ready(function () {
+        $(".rank").hide();
+        $(".births").hide();
+        $(".deaths").hide();
+
+        $(".r").click(function() {
+            // assumes element with id='button'
+            $(".births").hide();
+            $(".deaths").hide();
+
+            if($(".rank").is(':visible'))
+            {
+                $(".rank").animate({ width: 'hide' });
+            }
+            else
+            {
+                $(".rank").animate({ width: 'show' });
+            }
+        });
+
+        $(".b").click(function() {
+            $(".rank").hide();
+            $(".deaths").hide();
+
+            if($(".births").is(':visible'))
+            {
+                $(".births").animate({ width: 'hide' });
+            }
+            else
+            {
+                $(".births").animate({ width: 'show' });
+            }
+        });
+        $(".d").click(function() {
+            $(".rank").hide();
+            $(".births").hide();
+
+            if($(".deaths").is(':visible'))
+            {
+                $(".deaths").animate({ width: 'hide' });
+            }
+            else
+            {
+                $(".deaths").animate({ width: 'show' });
+            }
+        });
     });
+
+    $(".r").click(function(){
+
+    });
+    $("tr[data-link]").click(function() {
+        window.location = this.dataset.link
+    })
+
 </script>
