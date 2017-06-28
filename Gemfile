@@ -5,7 +5,6 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
-gem 'jquery-turbolinks'
 gem 'gmaps4rails'
 gem 'twitter-typeahead-rails'
 gem 'google-analytics-rails', '1.1.0'

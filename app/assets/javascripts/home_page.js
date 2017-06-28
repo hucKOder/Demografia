@@ -1,3 +1,4 @@
+
 $(document).on("turbolinks:load", function(){
     var substringMatcher = function(strs) {
         return function findMatches(q, cb) {
