@@ -12,6 +12,8 @@
         var options = {
             title: 'Počet vysťahovaných a prisťahovaných mužov',
             curveType: 'function',
+            hAxis: { format: ''},
+            vAxis: { format: 'decimal'},
             legend: { position: 'bottom' }
         };
         var chart = new google.visualization.LineChart(document.getElementById('male'));
@@ -25,6 +27,8 @@
         var options = {
             title: 'Počet vysťahovaných a prisťahovaných žien',
             curveType: 'function',
+            hAxis: { format: ''},
+            vAxis: { format: 'decimal'},
             legend: { position: 'bottom' }
         };
         var chart = new google.visualization.LineChart(document.getElementById('female'));
@@ -39,6 +43,8 @@
         var options = {
             title: 'Prisťahovaní zo Slovenska a vysťahovaní na Slovensko',
             curveType: 'function',
+            hAxis: { format: ''},
+            vAxis: { format: 'decimal'},
             legend: { position: 'bottom' }
         };
 
@@ -54,6 +60,8 @@
         var options = {
             title: 'Prisťahovaní zo zahraničia a vysťahovaní do zahraničia',
             curveType: 'function',
+            hAxis: { format: ''},
+            vAxis: { format: 'decimal'},
             legend: { position: 'bottom' }
         };
         var chart = new google.visualization.LineChart(document.getElementById('fgn'));

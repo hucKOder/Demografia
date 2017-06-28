@@ -14,6 +14,8 @@
         var options = {
             title: 'Počet narodených v priebehu rokov',
             curveType: 'function',
+            hAxis: { format: ''},
+            vAxis: { format: 'decimal'},
             legend: { position: 'bottom' }
         };
 
@@ -32,6 +34,8 @@
         var options = {
             title: 'Počet narodených v manželstve a počet narodených',
             curveType: 'function',
+            hAxis: { format: ''},
+            vAxis: { format: 'decimal'},
             legend: { position: 'bottom' }
         };
 
@@ -43,7 +47,7 @@
 
 <div class="container" align="center">
   <div class="row">
-    <div id="number" style="width: 800px; height: 600px; margin-bottom: 30px;"></div>
-    <div class="hideme" id="sum" style="width: 800px; height: 600px; margin-bottom: 30px;"></div>
+    <div id="number" class="graph"></div>
+    <div class="graph hideme" id="sum"></div>
   </div>
 </div>
